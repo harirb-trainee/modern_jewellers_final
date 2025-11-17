@@ -1,0 +1,55 @@
+@model MJ.Domain.ViewModels.ProductHeadVM
+
+<!-- Category Modal -->
+<div class="modal fade" id="addCategoryModal" tabindex="-1" aria-labelledby="categoryModalLabel" aria-hidden="true" >
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title text-lg font-semibold" id="categoryModalLabel">
+                    @(Model.ProductHeadId == 0 ? "Add New ProductHead" : "Edit ProductHead")
+                </h3>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="categoryForm">
+                    @if (Model.ProductHeadId != 0)
+                    {
+                        <input type="hidden" id="categoryId" value="@Model.ProductHeadId" />
+                    }
+
+                    <div class="mb-3">
+                        <label for="categoryName" class="form-label">Name</label>
+                        <input type="text" id="categoryName" value="@Model.Name" class="form-control" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="categoryDescription" class="form-label">Description</label>
+                        <textarea id="categoryDescription" rows="3" class="form-control">@Model.Description</textarea>
+                    </div>
+
+                    <div class="mb-3 ">
+                        <label class="form-label">Status</label>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="categoryStatus" id="categoryActive" value="true"
+                                   @(Model.IsActive == true ? "checked" : "")>
+                            <label class="form-check-label" for="categoryActive">Active</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="categoryStatus" id="categoryInActive" value="false"
+                                   @(Model.IsActive == false ? "checked" : "")> 
+                            <label class="form-check-label" for="categoryInActive">Inactive</label>
+                        </div>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                        <button type="submit" class="btn btn-primary">
+                            @(Model.ProductHeadId == 0 ? "Save ProductHead Type" : "Update ProductHead Type")
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+

@@ -1,0 +1,14 @@
+D:\Harikrishna\ModernJwellers\MJ.Domain\bin\Debug\net7.0\MJ.Domain.deps.json
+D:\Harikrishna\ModernJwellers\MJ.Domain\bin\Debug\net7.0\MJ.Domain.runtimeconfig.json
+D:\Harikrishna\ModernJwellers\MJ.Domain\bin\Debug\net7.0\MJ.Domain.dll
+D:\Harikrishna\ModernJwellers\MJ.Domain\bin\Debug\net7.0\MJ.Domain.pdb
+D:\Harikrishna\ModernJwellers\MJ.Domain\obj\Debug\net7.0\MJ.Domain.csproj.AssemblyReference.cache
+D:\Harikrishna\ModernJwellers\MJ.Domain\obj\Debug\net7.0\MJ.Domain.GeneratedMSBuildEditorConfig.editorconfig
+D:\Harikrishna\ModernJwellers\MJ.Domain\obj\Debug\net7.0\MJ.Domain.AssemblyInfoInputs.cache
+D:\Harikrishna\ModernJwellers\MJ.Domain\obj\Debug\net7.0\MJ.Domain.AssemblyInfo.cs
+D:\Harikrishna\ModernJwellers\MJ.Domain\obj\Debug\net7.0\MJ.Domain.csproj.CoreCompileInputs.cache
+D:\Harikrishna\ModernJwellers\MJ.Domain\obj\Debug\net7.0\MJ.Domain.dll
+D:\Harikrishna\ModernJwellers\MJ.Domain\obj\Debug\net7.0\refint\MJ.Domain.dll
+D:\Harikrishna\ModernJwellers\MJ.Domain\obj\Debug\net7.0\MJ.Domain.pdb
+D:\Harikrishna\ModernJwellers\MJ.Domain\obj\Debug\net7.0\MJ.Domain.genruntimeconfig.cache
+D:\Harikrishna\ModernJwellers\MJ.Domain\obj\Debug\net7.0\ref\MJ.Domain.dll

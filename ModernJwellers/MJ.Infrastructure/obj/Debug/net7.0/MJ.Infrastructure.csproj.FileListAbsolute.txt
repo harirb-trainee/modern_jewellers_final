@@ -1,0 +1,17 @@
+D:\Harikrishna\ModernJwellers\MJ.Infrastructure\bin\Debug\net7.0\MJ.Infrastructure.deps.json
+D:\Harikrishna\ModernJwellers\MJ.Infrastructure\bin\Debug\net7.0\MJ.Infrastructure.runtimeconfig.json
+D:\Harikrishna\ModernJwellers\MJ.Infrastructure\bin\Debug\net7.0\MJ.Infrastructure.dll
+D:\Harikrishna\ModernJwellers\MJ.Infrastructure\bin\Debug\net7.0\MJ.Infrastructure.pdb
+D:\Harikrishna\ModernJwellers\MJ.Infrastructure\bin\Debug\net7.0\MJ.Domain.dll
+D:\Harikrishna\ModernJwellers\MJ.Infrastructure\bin\Debug\net7.0\MJ.Domain.pdb
+D:\Harikrishna\ModernJwellers\MJ.Infrastructure\obj\Debug\net7.0\MJ.Infrastructure.csproj.AssemblyReference.cache
+D:\Harikrishna\ModernJwellers\MJ.Infrastructure\obj\Debug\net7.0\MJ.Infrastructure.GeneratedMSBuildEditorConfig.editorconfig
+D:\Harikrishna\ModernJwellers\MJ.Infrastructure\obj\Debug\net7.0\MJ.Infrastructure.AssemblyInfoInputs.cache
+D:\Harikrishna\ModernJwellers\MJ.Infrastructure\obj\Debug\net7.0\MJ.Infrastructure.AssemblyInfo.cs
+D:\Harikrishna\ModernJwellers\MJ.Infrastructure\obj\Debug\net7.0\MJ.Infrastructure.csproj.CoreCompileInputs.cache
+D:\Harikrishna\ModernJwellers\MJ.Infrastructure\obj\Debug\net7.0\MJ.Infra.3EFEB02C.Up2Date
+D:\Harikrishna\ModernJwellers\MJ.Infrastructure\obj\Debug\net7.0\MJ.Infrastructure.dll
+D:\Harikrishna\ModernJwellers\MJ.Infrastructure\obj\Debug\net7.0\refint\MJ.Infrastructure.dll
+D:\Harikrishna\ModernJwellers\MJ.Infrastructure\obj\Debug\net7.0\MJ.Infrastructure.pdb
+D:\Harikrishna\ModernJwellers\MJ.Infrastructure\obj\Debug\net7.0\MJ.Infrastructure.genruntimeconfig.cache
+D:\Harikrishna\ModernJwellers\MJ.Infrastructure\obj\Debug\net7.0\ref\MJ.Infrastructure.dll

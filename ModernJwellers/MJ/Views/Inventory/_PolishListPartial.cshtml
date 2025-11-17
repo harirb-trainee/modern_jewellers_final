@@ -1,0 +1,127 @@
+@model IEnumerable<PolishType>
+<script src="sweetalert2.min.js"></script>
+@* <link rel="stylesheet" href="sweetalert2.min.css"> *@
+@if (Model == null || !Model.Any())
+{
+    <div class="text-center text-gray-500">No data available.</div>
+}
+else
+{
+    <div class="flex justify-between items-center mb-6">
+        <h2 class="text-xl font-semibold">Polish Types</h2>
+        <button id="addPolishBtn" data-url="/Inventory/LoadAddPolishModal"
+            class="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 flex items-center">
+            <i class="fas fa-plus mr-2"></i> Add Polish Type
+        </button>
+    </div>
+
+    <div class="overflow-x-auto">
+        <table class="min-w-full divide-y divide-gray-200">
+            <thead class="bg-gray-50">
+                <tr>
+                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                        Polish Name
+                    </th>
+                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                        Description
+                    </th>
+                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                        Status
+                    </th>
+                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                        Actions
+                    </th>
+                </tr>
+            </thead>
+            <tbody id="polishTableBody" class="bg-white divide-y divide-gray-200">
+                @foreach (var polish in Model)
+                {
+                    <tr class="attribute-item">
+                        <td class="px-6 py-4 whitespace-nowrap">
+                            <div class="text-sm font-medium text-gray-900">@polish.Name</div>
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap">
+                            <div class="text-sm text-gray-500">@polish.Description</div>
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap">
+                            <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full
+                    @(polish.Status.GetValueOrDefault() ? "bg-green-100 text-green-800" : "bg-red-100 text-red-800")">
+                    @(polish.Status.GetValueOrDefault() ? "Active" : "Inactive")
+                    </span>
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                            <div class="flex space-x-2">
+                                <button class="text-blue-600 hover:text-blue-900" onclick="editPolish(@polish.PolishTypeId)">
+                                    <i class="fas fa-edit"></i>
+                                </button>
+                                <button class="text-red-600 hover:text-red-900" onclick="deletePolish(@polish.PolishTypeId)">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+
+}
+<script>
+    function editPolish(polishId) {
+        var url = '/Inventory/LoadAddPolishModal?Id=' + polishId;
+        $.get(url, function (data) {
+            $('#modalContainer').html(data);
+            var editPolishModal = new bootstrap.Modal(document.getElementById('addPolishModal'));
+            editPolishModal.show();
+        });
+    }
+
+   function deletePolish(polishId) {
+    Swal.fire({
+        title: "Are you sure?",
+        text: "You won't be able to revert this!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, delete it!"
+    }).then((result) => {
+        if (result.isConfirmed) {
+            // Make the AJAX call to delete the item
+            $.ajax({
+                url: `/Inventory/DeletePolish/${polishId}`, 
+                type: "DELETE", 
+                success: function (response) {
+                    if (response.success) {
+                        Swal.fire({
+                            title: "Deleted!",
+                            text: response.message || "The polish type has been deleted.",
+                            icon: "success"
+                        }).then(() => {
+                            if (typeof loadTab === "function") {
+                                loadTab('polish'); 
+                            } else {
+                                location.reload();
+                            }
+                        });
+                    } else {
+                        Swal.fire({
+                            title: "Error!",
+                            text: response.message || "An error occurred while deleting the polish type.",
+                            icon: "error"
+                        });
+                    }
+                },
+                error: function (xhr) {
+                    Swal.fire({
+                        title: "Error!",
+                        text: "Failed to delete the polish type. Server responded with: " + xhr.statusText,
+                        icon: "error"
+                    });
+                }
+            });
+        }
+    });
+}
+</script>

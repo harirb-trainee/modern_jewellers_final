@@ -1,0 +1,146 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - MJ</title>
+    <script type="importmap"></script>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/MJ.styles.css" asp-append-version="true" />
+    <style>
+        body {
+            display: flex;
+            min-height: 100vh;
+            margin: 0;
+        }
+
+        .main-content {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        header {
+            z-index: 10;
+        }
+
+        main {
+            flex-grow: 1;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Sidebar -->
+    <div id="sidebar" class="sidebar bg-gray-800 text-white shadow-lg expanded">
+        <div class="p-4">
+            <button id="toggleSidebar" class="ml-auto text-white focus:outline-none">
+                <i class="fas fa-bars"></i>
+            </button>
+            <span class="logo-text text-xl font-bold">Modern Jewellers</span>
+            @* <button id="toggleSidebar" class="ml-auto text-white focus:outline-none">
+            <i class="fas fa-bars"></i>
+            </button> *@
+        </div>
+        <nav class="mt-6">
+            <div class="px-4 py-2 hover:bg-gray-700 cursor-pointer flex items-center">
+                <i class="fas fa-tachometer-alt mr-3"></i>
+                <span class="nav-text">Dashboard</span>
+            </div>
+            <a asp-controller="Inventory" asp-action="Index"
+                class="px-4 py-2 hover:bg-gray-700 cursor-pointer flex items-center">
+                <i class="fas fa-boxes mr-3"></i>
+                <span class="nav-text">Inventory</span>
+            </a>
+            <div class="px-4 py-2 hover:bg-gray-700 cursor-pointer flex items-center">
+                <i class="fas fa-list mr-3"></i>
+                <span class="nav-text">Categories</span>
+            </div>
+            <div class="px-4 py-2 hover:bg-gray-700 cursor-pointer flex items-center">
+                <i class="fas fa-tags mr-3"></i>
+                <span class="nav-text">Products</span>
+            </div>
+            <div class="px-4 py-2 hover:bg-gray-700 cursor-pointer flex items-center">
+                <i class="fas fa-chart-line mr-3"></i>
+                <span class="nav-text">Reports</span>
+            </div>
+            <div class="px-4 py-2 hover:bg-gray-700 cursor-pointer flex items-center">
+                <i class="fas fa-users mr-3"></i>
+                <span class="nav-text">Staff</span>
+            </div>
+            <div class="px-4 py-2 hover:bg-gray-700 cursor-pointer flex items-center">
+                <i class="fas fa-cog mr-3"></i>
+                <span class="nav-text">Settings</span>
+            </div>
+        </nav>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <!-- Header -->
+        <header class="bg-white shadow-sm">
+            <div class="flex justify-between items-center p-2">
+                <!-- ✅ Logo Section -->
+                <div class="flex items-center space-x-3 ">
+                    <img src="~/stock-images/logo.jpg" height="70px" width="90px" alt="Modern Jewellers Logo">
+                    @* <span class="text-xl font-bold text-gray-800 hidden sm:inline">Modern Jewellers</span> *@
+                </div>
+
+                <!-- ✅ Right-side icons -->
+                <div class="flex items-center space-x-4">
+                    <!-- Notification Bell -->
+                    <div class="relative">
+                        <i class="fas fa-bell text-gray-600 text-xl cursor-pointer"></i>
+                        <span class="absolute top-0 right-0 h-2 w-2 rounded-full bg-red-500"></span>
+                    </div>
+
+                    <!-- Profile Dropdown -->
+                    <div class="relative">
+                        <div class="flex items-center cursor-pointer" id="adminDropdownToggle1">
+                            <img src="https://randomuser.me/api/portraits/women/65.jpg" alt="User"
+                                class="rounded-full h-8 w-8">
+                            <span class="ml-2 text-gray-700 hidden md:inline">Admin</span>
+                            <i class="fas fa-chevron-down ml-2 text-gray-600"></i>
+                        </div>
+
+                        <!-- Dropdown Menu -->
+                        <div id="adminDropdown1"
+                            class="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg hidden">
+                            <a href="/Account/Profile" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">
+                                My Profile
+                            </a>
+                            <a href="/Account/ChangePassword" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">
+                                Change Password
+                            </a>
+                            <a href="/Auth/Logout" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">
+                                Logout
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+
+        <!-- Main Content Area -->
+        <main role="main">
+            @RenderBody()
+        </main>
+    </div>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+    <script>
+         document.getElementById('adminDropdownToggle1').addEventListener('click', function () {
+            console.log('Dropdown toggle clicked');
+            const dropdown = document.getElementById('adminDropdown1');
+            dropdown.classList.toggle('hidden');
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,5 @@
+D:\Harikrishna\ModernJwellers\MJ.Domain\obj\Debug\net9.0\MJ.Domain.csproj.AssemblyReference.cache
+D:\Harikrishna\ModernJwellers\MJ.Domain\obj\Debug\net9.0\MJ.Domain.GeneratedMSBuildEditorConfig.editorconfig
+D:\Harikrishna\ModernJwellers\MJ.Domain\obj\Debug\net9.0\MJ.Domain.AssemblyInfoInputs.cache
+D:\Harikrishna\ModernJwellers\MJ.Domain\obj\Debug\net9.0\MJ.Domain.AssemblyInfo.cs
+D:\Harikrishna\ModernJwellers\MJ.Domain\obj\Debug\net9.0\MJ.Domain.csproj.CoreCompileInputs.cache

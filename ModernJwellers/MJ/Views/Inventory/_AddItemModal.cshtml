@@ -1,0 +1,177 @@
+<!-- Add Jewelry Item Modal -->
+<div class="modal fade" id="addJewelryModal" tabindex="-1" aria-labelledby="addJewelryLabel" aria-hidden="true">
+  <div class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable">
+    <div class="modal-content border-0 shadow-lg rounded-3">
+
+      <!-- Header -->
+      <div class="modal-header bg-light">
+        <h5 class="modal-title fw-semibold" id="addJewelryLabel">Add New Jewelry Item</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+
+      <!-- Body -->
+      <div class="modal-body bg-white">
+        <form id="addItemForm" class="row g-4">
+
+          <!-- Basic Information -->
+          <div class="col-md-6">
+            <div class="card border-0 shadow-sm">
+              <div class="card-header bg-light fw-semibold">Basic Information</div>
+              <div class="card-body">
+
+                <div class="mb-3">
+                  <label for="itemName" class="form-label">Item Name</label>
+                  <input type="text" id="itemName" class="form-control" required>
+                </div>
+
+                <div class="mb-3">
+                  <label for="itemSKU" class="form-label">MJ Code</label>
+                  <input type="text" id="itemSKU" class="form-control">
+                </div>
+
+                <div class="mb-3">
+                  <label for="itemDescription" class="form-label">Description</label>
+                  <textarea id="  " rows="3" class="form-control"></textarea>
+                </div>
+
+                <div class="mb-3">
+                  <label for="itemCategory" class="form-label">Category</label>
+                  <select id="itemCategory" class="form-select" required>
+                    <option value="">Select Category</option>
+                    <option value="1">Necklaces</option>
+                    <option value="2">Rings</option>
+                    <option value="3">Earrings</option>
+                    <option value="4">Bangles</option>
+                    <option value="5">Anklets</option>
+                    <option value="6">Pendants</option>
+                    <option value="7">Bracelets</option>
+                    <option value="8">Mangalsutra</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="card border-0 shadow-sm">
+              <div class="card-header bg-light fw-semibold">Specifications</div>
+              <div class="card-body">
+
+                <div class="mb-3">
+                  <label for="itemPolish" class="form-label">Polish Type</label>
+                  <select id="itemPolish" class="form-select" required>
+                    <option value="">Select Polish</option>
+                    <option value="Gold">Gold</option>
+                    <option value="Silver">Silver</option>
+                    <option value="Platinum">Platinum</option>
+                    <option value="Rose Gold">Rose Gold</option>
+                    <option value="Rhodium">Rhodium</option>
+                    <option value="Other">Other</option>
+                  </select>
+                </div>
+
+                <div class="mb-3">
+                  <label for="itemMaterial" class="form-label">Material</label>
+                  <select id="itemMaterial" class="form-select">
+                    <option value="">Select Material</option>
+                    <option value="24K Gold">24K Gold</option>
+                    <option value="22K Gold">22K Gold</option>
+                    <option value="18K Gold">18K Gold</option>
+                    <option value="925 Silver">925 Silver</option>
+                    <option value="Platinum 950">Platinum 950</option>
+                  </select>
+                </div>
+                <div class="mb-3">
+                  <label for="itemMaterial" class="form-label">Color</label>
+                  <select id="itemMaterial" class="form-select">
+                    <option value="">Select Color</option>
+                    <option value="24K Gold">Red </option>
+                    <option value="22K Gold">Green </option>
+                    <option value="18K Gold">Multi</option>
+                  </select>
+                </div>
+
+                <div class="mb-3">
+                  <label for="itemWeight" class="form-label">Weight (grams)</label>
+                  <input type="number" id="itemWeight" min="0" step="0.01" class="form-control">
+                </div>
+
+                <div class="form-check">
+                  <input type="checkbox" id="itemHallmark" class="form-check-input">
+                  <label for="itemHallmark" class="form-check-label">This item has hallmark</label>
+                </div>
+
+              </div>
+            </div>
+          </div>
+          <!-- Pricing & Inventory -->
+          <div class="col-md-6">
+            <div class="card border-0 shadow-sm">
+              <div class="card-header bg-light fw-semibold">Pricing & Inventory</div>
+              <div class="card-body">
+
+                <div class="mb-3">
+                  <label for="itemPrice" class="form-label">Price (₹)</label>
+                  <input type="number" id="itemPrice" min="0" step="1" class="form-control" required>
+                </div>
+
+
+                <div class="mb-3">
+                  <label for="itemQuantity" class="form-label">Quantity</label>
+                  <input type="number" id="itemQuantity" min="0" class="form-control" required>
+                </div>
+
+                <div class="mb-3">
+                  <label for="itemThreshold" class="form-label">Low Stock Threshold</label>
+                  <input type="number" id="itemThreshold" min="1" value="5" class="form-control">
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+          <!-- Images & Attributes -->
+          <div class="col-md-6">
+            <div class="card border-0 shadow-sm">
+              <div class="card-header bg-light fw-semibold">Images & Attributes</div>
+              <div class="card-body">
+
+                <div class="mb-3">
+                  <label for="itemImage" class="form-label">Main Image</label>
+                  <div class="d-flex align-items-center">
+                    <div class="border rounded me-3" style="width:90px;height:90px;overflow:hidden;">
+                      <img id="imagePreview" src="" alt="Preview" class="w-100 h-100 object-fit-cover d-none">
+                      <div id="imagePlaceholder"
+                        class="d-flex justify-content-center align-items-center bg-light text-muted h-100">
+                        <i class="fa-solid fa-image fa-lg"></i>
+                      </div>
+                    </div>
+                    <button type="button" class="btn btn-outline-primary btn-sm"
+                      onclick="document.getElementById('imageUpload').click()">Upload</button>
+                    <input id="imageUpload" type="file" class="d-none" accept="image/*">
+                  </div>
+                </div>
+
+                <div class="mb-3">
+                  <label class="form-label">Additional Images</label>
+                  <button type="button" class="btn btn-outline-secondary btn-sm"
+                    onclick="document.getElementById('additionalImages').click()">
+                    <i class="fa fa-plus"></i> Add Images
+                  </button>
+                  <input id="additionalImages" type="file" class="d-none" multiple accept="image/*">
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </form>
+      </div>
+
+      <!-- Footer -->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="submit" form="addItemForm" class="btn btn-primary">Save Item</button>
+      </div>
+
+    </div>
+  </div>
+</div>

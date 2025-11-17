@@ -1,0 +1,318 @@
+@model MJ.Domain.ViewModels.InventoryDashboardVM
+@if (Model == null || Model.ItemList.Count() == 0)
+{
+    <div class="text-center text-gray-500">No data available.</div>
+}
+else
+{
+    <div>
+        <main >
+            <!-- Search and Filters Section -->
+            <div class="bg-white rounded-lg shadow-md p-4 mb-6">
+                <div class="flex flex-wrap  items-center gap-4">
+                    <!-- Search Box -->
+                    <div class="relative flex-grow max-w-md">
+                        <input type="text" id="searchInput" placeholder="Search items..."
+                            class="w-full pl-10 pr-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        <i class="fas fa-search absolute left-3 top-3 text-gray-400"></i>
+                    </div>
+
+                    <!-- Filter Buttons -->
+                    <div class="input-group rounded w-25  ">
+                        <select id="polishFilterBtn"
+                            class="form-select rounded flex items-center bg-gray-100 hover:bg-gray-200 px-1 py-2 rounded-sm transition-200 "
+                            onchange="changeStatus(this.value)">
+                            <option value="" selected>Polish Type</option>
+                            <option value="1">Rajwadi</option>
+                            <option value="2">Golden</option>
+                            <option value="3">Rhodium</option>
+                        </select>
+                    </div>
+                    <div class="input-group rounded w-25  ">
+                        <select id="polishFilterBtn"
+                            class="form-select rounded flex items-center bg-gray-100 hover:bg-gray-200 px-1 py-2 rounded-sm transition-200 "
+                            onchange="changeStatus(this.value)">
+                            <option value="" selected>Color</option>
+                            <option value="1">Red</option>
+                            <option value="2">Blue</option>
+                            <option value="3">Multi</option>
+
+                        </select>
+                    </div>
+                    <div class="input-group rounded w-25">
+                        <select id="polishFilterBtn"
+                            class="form-select rounded flex items-center bg-gray-100 hover:bg-gray-200 px-1 py-2 rounded-sm transition-200 "
+                            onchange="changeStatus(this.value)">
+                            <option value="" selected>Category</option>
+                            <option value="1">Payal</option>
+                            <option value="2">Earing</option>
+                            <option value="4">Mala</option>
+                            <option value="5">Kada</option>
+
+
+                        </select>
+                    </div>
+
+                    <button id="stockFilterBtn"
+                        class="flex items-center bg-gray-100 hover:bg-gray-200 px-3 py-2 rounded-lg transition-200">
+                        <i class="fas fa-exclamation-triangle mr-2 text-gray-600"></i>
+                        <span>Low Stock</span>
+                    </button>
+
+                    <button id="resetFiltersBtn"
+                        class="flex items-center bg-gray-100 hover:bg-gray-200 px-3 py-2 rounded-lg transition-200">
+                        <i class="fas fa-redo mr-2 text-gray-600"></i>
+                        <span>Reset</span>
+                    </button>
+                    <button id="addItemBtn" data-url="/Inventory/LoadAddItemModal"
+                        class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md flex items-center transition-200">
+                        <i class="fas fa-plus mr-2"></i> Add Item
+                    </button>
+                </div>
+
+            </div>
+
+            <!-- Inventory Summary -->
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-4">
+                <div class="bg-white p-4 rounded-lg shadow-sm border-l-4 border-blue-500">
+                    <div class="flex justify-between items-center">
+                        <div>
+                            <p class="text-gray-500 text-sm">Total Items</p>
+                            <h3 class="text-2xl font-bold">@Model.TotalItems</h3>
+                        </div>
+                        <div class="bg-blue-100 p-3 rounded-full text-blue-600">
+                            <i class="fas fa-box text-xl"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-white p-4 rounded-lg shadow-sm border-l-4 border-green-500">
+                    <div class="flex justify-between items-center">
+                        <div>
+                            <p class="text-gray-500 text-sm">Total Value</p>
+                            <h3 class="text-2xl font-bold">₹@Model.TotalInventoryValue</h3>
+                        </div>
+                        <div class="bg-green-100 p-3 rounded-full text-green-600">
+                            <i class="fas fa-rupee-sign text-xl"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-white p-4 rounded-lg shadow-sm border-l-4 border-yellow-500">
+                    <div class="flex justify-between items-center">
+                        <div>
+                            <p class="text-gray-500 text-sm">Low Stock</p>
+                            <h3 class="text-2xl font-bold">@Model.LowStockItems</h3>
+                        </div>
+                        <div class="bg-yellow-100 p-3 rounded-full text-yellow-600">
+                            <i class="fas fa-exclamation-triangle text-xl"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-white p-4 rounded-lg shadow-sm border-l-4 border-purple-500">
+                    <div class="flex justify-between items-center">
+                        <div>
+                            <p class="text-gray-500 text-sm">Categories</p>
+                            <h3 class="text-2xl font-bold">@Model.TotalCategories</h3>
+                        </div>
+                        <div class="bg-purple-100 p-3 rounded-full text-purple-600">
+                            <i class="fas fa-tags text-xl"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Inventory Table -->
+            <div class="bg-white rounded-lg shadow-md overflow-hidden">
+                <div class="flex justify-between items-center p-4 border-b">
+                    <h2 class="text-lg font-semibold">Jewelry Items (5)</h2>
+                    <div class="flex items-center text-sm text-gray-500">
+                        <span class="mr-2">Items per page:</span>
+                        <select id="itemsPerPage"
+                            class="border rounded-md px-2 py-1 focus:outline-none focus:ring-1 focus:ring-blue-500">
+                            <option value="10">10</option>
+                            <option value="25">25</option>
+                            <option value="50">50</option>
+                            <option value="100">100</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="overflow-x-auto">
+                    <table class="min-w-full divide-y divide-gray-200">
+                        <thead class="bg-gray-50">
+                            <tr>
+                                <th scope="col"
+                                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-10">
+                                    <input type="checkbox"
+                                        class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded">
+                                </th>
+                                <th scope="col"
+                                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                    Item
+                                </th>
+                                <th scope="col"
+                                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                    ProductHead
+                                </th>
+                                <th scope="col"
+                                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                    ProductHead Type
+                                </th>
+                                <th scope="col"
+                                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                    Polish Type
+                                </th>
+                                <th scope="col"
+                                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                    Price
+                                </th>
+                                <th scope="col"
+                                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                    Quantity
+                                </th>
+                                <th scope="col"
+                                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                    Status
+                                </th>
+                                <th scope="col"
+                                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                    Actions
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody id="inventoryTableBody" class="bg-white divide-y divide-gray-200">
+                            @foreach (var item in Model.ItemList)
+                            {
+
+
+                                <!-- Static data rows -->
+                                <tr class="hover:bg-gray-50">
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <input type="checkbox"
+                                            class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded">
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <div class="flex items-center">
+                                            <div class="flex-shrink-0 h-10 w-10">
+                                                <img class="h-10 w-10 rounded-md object-cover"
+                                                    src="https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f"
+                                                    alt="Golden Pearl Necklace">
+                                            </div>
+                                            <div class="ml-4">
+                                                <div class="text-sm font-medium text-gray-900">@item.ItemName</div>
+                                                <div class="text-sm text-gray-500">Necklace</div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <div class="text-sm text-gray-900 capitalize">@item.CategoryName</div>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <div class="text-sm text-gray-900 capitalize">@item.subCategoryName</div>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <div class="text-sm text-gray-900 capitalize">@item.PolishType</div>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <div class="text-sm text-gray-900">@item.Item_price</div>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <div class="text-sm text-gray-900">@item.Item_Quantity</div>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <span
+                                            class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">In
+                                            Stock</span>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                        <div class="flex space-x-2">
+                                            <button class="text-blue-600 hover:text-blue-900">
+                                                <i class="fas fa-edit"></i>
+                                            </button>
+                                            <button class="text-red-600 hover:text-red-900">
+                                                <i class="fas fa-trash"></i>
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Pagination -->
+                <div class="flex items-center justify-between px-4 py-3 bg-gray-50 border-t border-gray-200 sm:px-6">
+                    <div class="hidden sm:flex-1 sm:flex sm:items-center sm:justify-between">
+                        <div>
+                            <p class="text-sm text-gray-700">
+                                Showing <span class="font-medium" id="startItem">1</span> to <span class="font-medium"
+                                    id="endItem">5</span> of <span class="font-medium" id="totalItems">5</span> results
+                            </p>
+                        </div>
+                        <div>
+                            <nav class="relative z-0 inline-flex rounded-md shadow-sm -space-x-px" aria-label="Pagination">
+                                <a href="#" id="prevPageBtn"
+                                    class="relative inline-flex items-center px-2 py-2 rounded-l-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50">
+                                    <span class="sr-only">Previous</span>
+                                    <i class="fas fa-chevron-left"></i>
+                                </a>
+
+                                <div id="paginationNumbers" class="flex">
+                                    <!-- Page numbers will be added here -->
+                                </div>
+
+                                <a href="#" id="nextPageBtn"
+                                    class="relative inline-flex items-center px-2 py-2 rounded-r-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50">
+                                    <span class="sr-only">Next</span>
+                                    <i class="fas fa-chevron-right"></i>
+                                </a>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        $(document).off("click", "#addItemBtn").on("click", "#addItemBtn", function () {
+            const url = $(this).data("url");
+            $.get(url, function (data) {
+                $("#modalContainer").html(data);
+                $("#addJewelryModal").modal("show");
+            });
+        });
+
+$(document).off("submit", "#addItemForm").on("submit", "#addItemForm", function (e) {
+            e.preventDefault();
+            const formData = {
+                Id: $("#itemName").val() || 0,
+                @* PolishName: $("#polishName").val(), *@
+                Description: $("#itemDescription").val(),
+                @* IsActive: $("input[name='polishStatus']:checked").val() *@
+            };
+
+            $.ajax({
+                url: "/Inventory/AddEditItem",
+                type: "POST",
+                contentType: "application/json",
+                data: JSON.stringify(formData),
+                success: function (response) {
+                    if (response.success) {
+                        toastr.success(response.message);
+                        $("#addPolishModal").modal("hide");
+                        console.log("Reloading Polish tab...");
+                        loadTab('polish');
+
+                    } else {
+                        toastr.error(response.message || "An error occurred while saving the polish type.");
+                    }
+                },
+                error: function (xhr) {
+                    toastr.error("Failed to save polish type. Server responded with: " + xhr.statusText);
+                }
+            });
+        });
+    </script>
+
+
+}

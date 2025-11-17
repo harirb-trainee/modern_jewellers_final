@@ -1,0 +1,97 @@
+@{
+    ViewData["Title"] = "Login";
+    Layout = "_InventoryLayout";
+}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewData["Title"]</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link rel="stylesheet" href="/css/sweetalert2.min.css">
+</head>
+
+<body class="bg-gray-50 m-0">
+    <!-- Main Content Area -->
+    <main id="inventoryIndex" class="p-6">
+        <div class="text-center text-gray-500">
+            <h2 class="text-xl font-semibold">Welcome to Jewelry Inventory Management</h2>
+            <p>Select an option from the sidebar to get started.</p>
+        </div>
+    </main>
+    </div>
+
+    <script>
+        document.getElementById('toggleSidebar').addEventListener('click', function () {
+            const sidebar = document.getElementById('sidebar');
+            const mainContent = document.getElementById('mainContent');
+
+            sidebar.classList.toggle('collapsed');
+            sidebar.classList.toggle('expanded');
+
+            if (sidebar.classList.contains('collapsed')) {
+                mainContent.classList.remove('md:ml-64');
+                mainContent.classList.add('md:ml-20');
+            } else {
+                mainContent.classList.remove('md:ml-20');
+                mainContent.classList.add('md:ml-64');
+            }
+        });
+        $(document).ready(function () {
+            function loadPartialView(url) {
+                $('#inventoryIndex').html('<div class="text-center text-gray-500">Loading...</div>');
+                $.get(url, function (data) {
+                    $('#inventoryIndex').html(data); // Load the partial view content
+                }).fail(function () {
+                    $('#inventoryIndex').html('<div class="text-center text-red-500">Failed to load content.</div>');
+                });
+            }
+
+            // Function to handle active link styling
+            function setActiveLink(linkId) {
+                // Remove active styles from all links
+                $('nav a').removeClass('bg-gray-700 text-blue-300').addClass('text-gray-300');
+                // Add active styles to the clicked link
+                $(`#${linkId}`).removeClass('text-gray-300').addClass('bg-gray-700 text-blue-300');
+            }
+
+            $('#inventoryLink').click(function (e) {
+                e.preventDefault();
+                setActiveLink('inventoryLink');
+                loadPartialView('/Inventory/InventoryPartial');
+            });
+
+            $('#catelogLink').click(function (e) {
+                e.preventDefault();
+                setActiveLink('catelogLink');
+                loadPartialView('/Inventory/CatelogPartial');
+            });
+
+            $('#categoriesLink').click(function (e) {
+                e.preventDefault();
+                setActiveLink('categoriesLink');
+                loadPartialView('/Inventory/CategoriesPartial');
+            });
+
+            $('#reportsLink').click(function (e) {
+                e.preventDefault();
+                setActiveLink('reportsLink');
+                loadPartialView('/Inventory/ReportsPartial');
+            });
+
+            $('#staffLink').click(function (e) {
+                e.preventDefault();
+                setActiveLink('staffLink');
+                loadPartialView('/Inventory/StaffPartial');
+            });
+        });
+
+    </script>
+    @* <script src="~/js/test.js" asp-append-version="true"></script> *@
+</body>
+
+</html>

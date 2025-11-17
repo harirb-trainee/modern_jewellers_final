@@ -1,0 +1,130 @@
+@model IEnumerable<MJ.Domain.ViewModels.ProductHeadTypeVM>
+@if (Model == null || !Model.Any())
+{
+    <div class="text-center text-gray-500">No data available.</div>
+}
+else
+{
+    <div class="flex justify-between items-center mb-6">
+        <h2 class="text-xl font-semibold">Product HeadTypes</h2>
+        <button id="addSubCategoryBtn" data-url="/Inventory/LoadSubCategoryModal"
+            class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md flex items-center transition-200">
+            <i class="fas fa-plus mr-2"></i> Add Product Head Type
+        </button>
+    </div>
+
+    <div class="overflow-x-auto">
+        <table class="min-w-full divide-y divide-gray-200">
+            <thead class="bg-gray-50">
+                <tr>
+                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                        Name
+                    </th>
+                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                        Description
+                    </th>
+                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                        Parent Category
+                    </th>
+                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                        Status
+                    </th>
+                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                        Actions
+                    </th>
+                </tr>
+            </thead>
+            <tbody id="categoryTableBody" class="bg-white divide-y divide-gray-200">
+                @foreach (var pHeadType in Model)
+                {
+                    <tr class="attribute-item">
+                        <td class="px-6 py-4 whitespace-nowrap">
+                            <div class="text-sm font-medium text-gray-900">@pHeadType.Name</div>
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap">
+                            <div class="text-sm text-gray-500">@pHeadType.Description</div>
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap">
+                            <div class="text-sm text-gray-500">@pHeadType.ParentCategoryName</div>
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap">
+                            <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full 
+                            @(pHeadType.IsActive ? "bg-green-100 text-green-800" : "bg-red-100 text-red-800")">
+                                @(pHeadType.IsActive ? "Active" : "Inactive")
+                            </span>
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                            <div class="flex space-x-2">
+                                <button class="text-blue-600 hover:text-blue-900"
+                                    onclick="editSubCategory(@pHeadType.Id)">
+                                    <i class="fas fa-edit"></i>
+                                </button>
+                                <button class="text-red-600 hover:text-red-900"
+                                    onclick="deleteSubCategory(@pHeadType.Id)">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}
+<script>
+    function editSubCategory(categoryId) {
+        var url = '/Inventory/LoadSubCategoryModal?Id=' + categoryId;
+        $.get(url, function (data) {
+            $('#modalContainer').html(data);
+            var editCategoryModal = new bootstrap.Modal(document.getElementById('addSubCategoryModal'));
+            editCategoryModal.show();
+        });
+    }
+
+   function deleteSubCategory(categoryId) {
+    Swal.fire({
+        title: "Are you sure?",
+        text: "You won't be able to revert this!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, delete it!"
+    }).then((result) => {
+        if (result.isConfirmed) {
+            $.ajax({
+                url: `/Inventory/DeleteSubCategory/${categoryId}`, 
+                type: "DELETE", 
+                success: function (response) {
+                    if (response.success) {
+                        Swal.fire({
+                            title: "Deleted!",
+                            text: response.message || "The ProductHead type has been deleted.",
+                            icon: "success"
+                        }).then(() => {
+                            if (typeof loadTab === "function") {
+                                loadTab('subcategory'); 
+                            } else {
+                                location.reload();
+                            }
+                        });
+                    } else {
+                        Swal.fire({
+                            title: "Error!",
+                            text: response.message || "An error occurred while deleting the ProductHead type.",
+                            icon: "error"
+                        });
+                    }
+                },
+                error: function (xhr) {
+                    Swal.fire({
+                        title: "Error!",
+                        text: "Failed to delete the ProductHead type. Server responded with: " + xhr.statusText,
+                        icon: "error"
+                    });
+                }
+            });
+        }
+    });
+}
+</script>
