@@ -21,6 +21,9 @@
         min-height: 100vh;
         margin: 0;
     }
+    #sidebar > div:first-child{
+        white-space: nowrap;
+        }
 
     .main-content {
         flex-grow: 1;
@@ -41,33 +44,21 @@
 <body>
     <!-- Sidebar -->
     <div id="sidebar" class="sidebar bg-gray-800 text-white shadow-lg expanded">
-        <div class="p-2">
+        <div class="p-4  ">
             <button id="toggleSidebar" class="ml-auto text-white focus:outline-none">
                 <i class="fas fa-bars"></i>
             </button>
-            <span class="logo-text text-xl font-bold">Modern Jewellers</span>
+            <span class="logo-text text-xl font-bold ">Modern Jewellers</span>
         </div>
         <nav class="mt-6">
             <a href="#" id="inventoryLink"
                 class="block px-4 py-3 hover:bg-gray-700 flex items-center text-blue-300 bg-gray-700">
                 <i class="fas fa-boxes mr-3"></i>
-                <span>Inventory</span>
+                <span class="nav-text">Inventory</span>
             </a>
             <a href="#" id="catelogLink" class="block px-4 py-3 hover:bg-gray-700 flex items-center text-gray-300">
                 <i class="fas fa-tags mr-3"></i>
-                <span>Catelog Setup</span>
-            </a>
-            <a href="#" id="categoriesLink" class="block px-4 py-3 hover:bg-gray-700 flex items-center text-gray-300">
-                <i class="fas fa-tags mr-3"></i>
-                <span>Categories</span>
-            </a>
-            <a href="#" id="reportsLink" class="block px-4 py-3 hover:bg-gray-700 flex items-center text-gray-300">
-                <i class="fas fa-chart-line mr-3"></i>
-                <span>Reports</span>
-            </a>
-            <a href="#" id="staffLink" class="block px-4 py-3 hover:bg-gray-700 flex items-center text-gray-300">
-                <i class="fas fa-users mr-3"></i>
-                <span>Staff</span>
+                <span class="nav-text">Catelog Setup</span>
             </a>
         </nav>
     </div>

@@ -1,0 +1,8 @@
+D:\Harikrishna\PizzaShopApp\obj\Debug\net7.0\PizzaShopApp.csproj.AssemblyReference.cache
+D:\Harikrishna\PizzaShopApp\obj\Debug\net7.0\PizzaShopApp.GeneratedMSBuildEditorConfig.editorconfig
+D:\Harikrishna\PizzaShopApp\obj\Debug\net7.0\PizzaShopApp.AssemblyInfoInputs.cache
+D:\Harikrishna\PizzaShopApp\obj\Debug\net7.0\PizzaShopApp.AssemblyInfo.cs
+D:\Harikrishna\PizzaShopApp\obj\Debug\net7.0\PizzaShopApp.csproj.CoreCompileInputs.cache
+D:\Harikrishna\PizzaShopApp\obj\Debug\net7.0\PizzaShopApp.MvcApplicationPartsAssemblyInfo.cache
+D:\Harikrishna\PizzaShopApp\obj\Debug\net7.0\PizzaShopApp.RazorAssemblyInfo.cache
+D:\Harikrishna\PizzaShopApp\obj\Debug\net7.0\PizzaShopApp.RazorAssemblyInfo.cs

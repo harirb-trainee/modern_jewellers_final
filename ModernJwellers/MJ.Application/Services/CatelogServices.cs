@@ -45,7 +45,7 @@ public class CatelogServices : ICatelogServices
         {
             Name = model.PolishName,
             Description = model.Description,
-            Status = model.Status == "active" ? true : false,
+            Status =  true,
         };
 
         _context.PolishTypes.Add(newPolish);
@@ -69,7 +69,7 @@ public class CatelogServices : ICatelogServices
 
         existingPolish.Name = model.PolishName;
         existingPolish.Description = model.Description;
-        existingPolish.Status = model.Status == "active" ? true : false;
+        // existingPolish.Status = model.Status == "active" ? true : false;
 
         _context.PolishTypes.Update(existingPolish);
         await _context.SaveChangesAsync();

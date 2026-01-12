@@ -84,7 +84,7 @@ public class InventoryController : Controller
                 Id = polishType.PolishTypeId,
                 PolishName = polishType.Name,
                 Description = polishType.Description,
-                Status = polishType.Status == true ? "active" : "inactive",
+                // Status = polishType.Status == true ? "active" : "inactive",
             };
         }
         else

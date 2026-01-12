@@ -124,3 +124,4 @@ D:\Harikrishna\ModernJwellers\MJ\obj\Debug\net7.0\MJ.pdb
 D:\Harikrishna\ModernJwellers\MJ\obj\Debug\net7.0\MJ.genruntimeconfig.cache
 D:\Harikrishna\ModernJwellers\MJ\obj\Debug\net7.0\ref\MJ.dll
 D:\Harikrishna\ModernJwellers\MJ\obj\Debug\net7.0\MJ.MvcApplicationPartsAssemblyInfo.cs
+D:\Harikrishna\ModernJwellers\MJ\obj\Debug\net7.0\MJ.sourcelink.json

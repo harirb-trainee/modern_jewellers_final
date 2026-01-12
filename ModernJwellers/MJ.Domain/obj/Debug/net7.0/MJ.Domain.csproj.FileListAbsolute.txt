@@ -12,3 +12,4 @@ D:\Harikrishna\ModernJwellers\MJ.Domain\obj\Debug\net7.0\refint\MJ.Domain.dll
 D:\Harikrishna\ModernJwellers\MJ.Domain\obj\Debug\net7.0\MJ.Domain.pdb
 D:\Harikrishna\ModernJwellers\MJ.Domain\obj\Debug\net7.0\MJ.Domain.genruntimeconfig.cache
 D:\Harikrishna\ModernJwellers\MJ.Domain\obj\Debug\net7.0\ref\MJ.Domain.dll
+D:\Harikrishna\ModernJwellers\MJ.Domain\obj\Debug\net7.0\MJ.Domain.sourcelink.json

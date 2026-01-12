@@ -6,7 +6,7 @@
 else
 {
     <div>
-        <main >
+        <main>
             <!-- Search and Filters Section -->
             <div class="bg-white rounded-lg shadow-md p-4 mb-6">
                 <div class="flex flex-wrap  items-center gap-4">
@@ -20,7 +20,7 @@ else
                     <!-- Filter Buttons -->
                     <div class="input-group rounded w-25  ">
                         <select id="polishFilterBtn"
-                            class="form-select rounded flex items-center bg-gray-100 hover:bg-gray-200 px-1 py-2 rounded-sm transition-200 "
+                            class="form-select rounded flex items-center  px-1 py-2 rounded-sm transition-200 "
                             onchange="changeStatus(this.value)">
                             <option value="" selected>Polish Type</option>
                             <option value="1">Rajwadi</option>
@@ -30,7 +30,7 @@ else
                     </div>
                     <div class="input-group rounded w-25  ">
                         <select id="polishFilterBtn"
-                            class="form-select rounded flex items-center bg-gray-100 hover:bg-gray-200 px-1 py-2 rounded-sm transition-200 "
+                            class="form-select rounded flex items-center px-1 py-2 rounded-sm transition-200 "
                             onchange="changeStatus(this.value)">
                             <option value="" selected>Color</option>
                             <option value="1">Red</option>
@@ -41,7 +41,7 @@ else
                     </div>
                     <div class="input-group rounded w-25">
                         <select id="polishFilterBtn"
-                            class="form-select rounded flex items-center bg-gray-100 hover:bg-gray-200 px-1 py-2 rounded-sm transition-200 "
+                            class="form-select rounded flex items-center px-1 py-2 rounded-sm transition-200 "
                             onchange="changeStatus(this.value)">
                             <option value="" selected>Category</option>
                             <option value="1">Payal</option>
@@ -192,10 +192,11 @@ else
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap">
                                         <div class="flex items-center">
-                                            <div class="flex-shrink-0 h-10 w-10">
-                                                <img class="h-10 w-10 rounded-md object-cover"
-                                                    src="https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f"
-                                                    alt="Golden Pearl Necklace">
+                                            <div class="h-10 w-10">
+                                                <img id="zoom_04"
+                                                    src="https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?w=200"
+                                                    data-zoom-image="https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?w=1200"
+                                                    class="h-10 w-10 rounded-md object-cover" alt="Golden Pearl Necklace" />
                                             </div>
                                             <div class="ml-4">
                                                 <div class="text-sm font-medium text-gray-900">@item.ItemName</div>
@@ -282,36 +283,36 @@ else
             });
         });
 
-$(document).off("submit", "#addItemForm").on("submit", "#addItemForm", function (e) {
+        $(document).off("submit", "#addItemForm").on("submit", "#addItemForm", function (e) {
             e.preventDefault();
             const formData = {
                 Id: $("#itemName").val() || 0,
-                @* PolishName: $("#polishName").val(), *@
+        @* PolishName: $("#polishName").val(), *@
                 Description: $("#itemDescription").val(),
-                @* IsActive: $("input[name='polishStatus']:checked").val() *@
-            };
+        @* IsActive: $("input[name='polishStatus']:checked").val() *@
+                    };
 
-            $.ajax({
-                url: "/Inventory/AddEditItem",
-                type: "POST",
-                contentType: "application/json",
-                data: JSON.stringify(formData),
-                success: function (response) {
-                    if (response.success) {
-                        toastr.success(response.message);
-                        $("#addPolishModal").modal("hide");
-                        console.log("Reloading Polish tab...");
-                        loadTab('polish');
+        $.ajax({
+            url: "/Inventory/AddEditItem",
+            type: "POST",
+            contentType: "application/json",
+            data: JSON.stringify(formData),
+            success: function (response) {
+                if (response.success) {
+                    toastr.success(response.message);
+                    $("#addPolishModal").modal("hide");
+                    console.log("Reloading Polish tab...");
+                    loadTab('polish');
 
-                    } else {
-                        toastr.error(response.message || "An error occurred while saving the polish type.");
-                    }
-                },
-                error: function (xhr) {
-                    toastr.error("Failed to save polish type. Server responded with: " + xhr.statusText);
+                } else {
+                    toastr.error(response.message || "An error occurred while saving the polish type.");
                 }
-            });
+            },
+            error: function (xhr) {
+                toastr.error("Failed to save polish type. Server responded with: " + xhr.statusText);
+            }
         });
+                });
     </script>
 
 

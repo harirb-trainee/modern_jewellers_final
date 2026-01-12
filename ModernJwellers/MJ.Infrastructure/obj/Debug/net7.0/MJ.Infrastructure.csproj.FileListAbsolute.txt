@@ -15,3 +15,4 @@ D:\Harikrishna\ModernJwellers\MJ.Infrastructure\obj\Debug\net7.0\refint\MJ.Infra
 D:\Harikrishna\ModernJwellers\MJ.Infrastructure\obj\Debug\net7.0\MJ.Infrastructure.pdb
 D:\Harikrishna\ModernJwellers\MJ.Infrastructure\obj\Debug\net7.0\MJ.Infrastructure.genruntimeconfig.cache
 D:\Harikrishna\ModernJwellers\MJ.Infrastructure\obj\Debug\net7.0\ref\MJ.Infrastructure.dll
+D:\Harikrishna\ModernJwellers\MJ.Infrastructure\obj\Debug\net7.0\MJ.Infrastructure.sourcelink.json

@@ -17,3 +17,4 @@ D:\Harikrishna\ModernJwellers\MJ.Application\obj\Debug\net7.0\refint\MJ.Applicat
 D:\Harikrishna\ModernJwellers\MJ.Application\obj\Debug\net7.0\MJ.Application.pdb
 D:\Harikrishna\ModernJwellers\MJ.Application\obj\Debug\net7.0\MJ.Application.genruntimeconfig.cache
 D:\Harikrishna\ModernJwellers\MJ.Application\obj\Debug\net7.0\ref\MJ.Application.dll
+D:\Harikrishna\ModernJwellers\MJ.Application\obj\Debug\net7.0\MJ.Application.sourcelink.json

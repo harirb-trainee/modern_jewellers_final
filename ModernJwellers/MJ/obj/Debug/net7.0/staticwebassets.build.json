@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "EKmOzewGgG3HADGFAqokNOc8tNHrGK9zIzdXgRRR77o=",
+  "Hash": "vcTOFof5YmYRUB6ITMynvOBeKBDEaadZolb4Ih5kEho=",
   "Source": "MJ",
   "BasePath": "_content/MJ",
   "Mode": "Default",
@@ -73,8 +73,8 @@
       "RelatedAsset": "",
       "AssetTraitName": "",
       "AssetTraitValue": "",
-      "Fingerprint": "3ub6jf13tq",
-      "Integrity": "a+BJWCSXRtB7oIhqT9u40r54lLrr8a8gQeGuRkynE7Q=",
+      "Fingerprint": "3bsh64y8tw",
+      "Integrity": "ceDPkq6nWDuGH6X3ghQKMJzMJXU6c/wP1i83f4in7fg=",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\css\\site.css"
@@ -1426,7 +1426,7 @@
   ],
   "Endpoints": [
     {
-      "Route": "css/site.3ub6jf13tq.css",
+      "Route": "css/site.3bsh64y8tw.css",
       "AssetFile": "D:\\Harikrishna\\ModernJwellers\\MJ\\wwwroot\\css\\site.css",
       "Selectors": [],
       "ResponseHeaders": [
@@ -1436,7 +1436,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "1396"
+          "Value": "1770"
         },
         {
           "Name": "Content-Type",
@@ -1444,11 +1444,11 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"a+BJWCSXRtB7oIhqT9u40r54lLrr8a8gQeGuRkynE7Q=\""
+          "Value": "\"ceDPkq6nWDuGH6X3ghQKMJzMJXU6c/wP1i83f4in7fg=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Tue, 04 Nov 2025 06:44:59 GMT"
+          "Value": "Mon, 17 Nov 2025 12:57:01 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -1458,7 +1458,7 @@
       "EndpointProperties": [
         {
           "Name": "fingerprint",
-          "Value": "3ub6jf13tq"
+          "Value": "3bsh64y8tw"
         },
         {
           "Name": "label",
@@ -1466,7 +1466,7 @@
         },
         {
           "Name": "integrity",
-          "Value": "sha256-a+BJWCSXRtB7oIhqT9u40r54lLrr8a8gQeGuRkynE7Q="
+          "Value": "sha256-ceDPkq6nWDuGH6X3ghQKMJzMJXU6c/wP1i83f4in7fg="
         }
       ]
     },
@@ -1481,7 +1481,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "1396"
+          "Value": "1770"
         },
         {
           "Name": "Content-Type",
@@ -1489,11 +1489,11 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"a+BJWCSXRtB7oIhqT9u40r54lLrr8a8gQeGuRkynE7Q=\""
+          "Value": "\"ceDPkq6nWDuGH6X3ghQKMJzMJXU6c/wP1i83f4in7fg=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Tue, 04 Nov 2025 06:44:59 GMT"
+          "Value": "Mon, 17 Nov 2025 12:57:01 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -1503,7 +1503,7 @@
       "EndpointProperties": [
         {
           "Name": "integrity",
-          "Value": "sha256-a+BJWCSXRtB7oIhqT9u40r54lLrr8a8gQeGuRkynE7Q="
+          "Value": "sha256-ceDPkq6nWDuGH6X3ghQKMJzMJXU6c/wP1i83f4in7fg="
         }
       ]
     },

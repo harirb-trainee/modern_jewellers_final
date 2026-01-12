@@ -70,3 +70,20 @@ body {
   background-color: #3b82f6;
   color: white;
 }
+.image-zoom {
+  height: 40px;
+  width: 40px;
+  overflow: hidden;        /* prevent zoom overflow */
+  border-radius: 6px;      /* match rounded-md */
+}
+
+.zoom-img {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease-in-out; /* smooth zoom */
+}
+
+.image-zoom:hover .zoom-img {
+  transform: scale(1.6);   /* zoom effect */
+}
