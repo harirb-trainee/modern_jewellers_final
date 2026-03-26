@@ -15,5 +15,7 @@ public class ItemVM
     public int subcategoryId { get; set; }
     public string subCategoryName { get; set; }
     public int Item_Quantity { get; set; }
+    public int LowStockThreshold { get; set; }
+    public string PhotoUrl { get; set; }
     public DateTime CreatedDate { get; set; } = DateTime.Now;
 }

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 
 namespace MJ;
@@ -12,7 +12,7 @@ public partial class Item
     public decimal ItemPrice { get; set; }
 
     public int? ItemQuantity { get; set; }
-
+    public int? Threshold { get; set; }
     public string? CreatedBy { get; set; }
 
     public string? UpdatedBy { get; set; }
@@ -31,6 +31,12 @@ public partial class Item
 
     public int? ItemSubCategory { get; set; }
 
+    public int? StoneId { get; set; }
+
+    public int? FittingId { get; set; }
+
+    public int? PatternId { get; set; }
+
     public virtual Color? ColorNavigation { get; set; }
 
     public virtual ProductHead? ItemCategoryNavigation { get; set; }
@@ -38,4 +44,10 @@ public partial class Item
     public virtual PolishType? ItemPolishNavigation { get; set; }
 
     public virtual ProductHeadType? ItemSubCategoryNavigation { get; set; }
+
+    public virtual StoneType? StoneNavigation { get; set; }
+
+    public virtual FittingType? FittingNavigation { get; set; }
+
+    public virtual Pattern? PatternNavigation { get; set; }
 }

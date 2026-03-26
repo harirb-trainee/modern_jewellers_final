@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 
@@ -29,11 +29,18 @@ public partial class MJDbContext : DbContext
 
     public virtual DbSet<ProductHeadType> ProductHeadTypes { get; set; }
 
+    public virtual DbSet<StoneType> StoneTypes { get; set; }
+
+    public virtual DbSet<FittingType> FittingTypes { get; set; }
+
+    public virtual DbSet<Pattern> Patterns { get; set; }
+
     public virtual DbSet<User> Users { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-        => optionsBuilder.UseNpgsql("Host=localhost:5432;Database=modern_jewellers;Username=postgres;Password=Tatva@123");
+    {
+        // Connection string moved to appsettings.json
+    }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -76,6 +83,7 @@ public partial class MJDbContext : DbContext
             entity.Property(e => e.ItemPolish).HasColumnName("item_polish");
             entity.Property(e => e.ItemPrice).HasColumnName("item_price");
             entity.Property(e => e.ItemQuantity).HasColumnName("item_quantity");
+            entity.Property(e => e.Threshold).HasColumnName("threshold");
             entity.Property(e => e.ItemSubCategory).HasColumnName("item_subCategory");
             entity.Property(e => e.PhotoUrl).HasColumnName("photo_url");
             entity.Property(e => e.UpdatedAt)
@@ -84,6 +92,9 @@ public partial class MJDbContext : DbContext
             entity.Property(e => e.UpdatedBy)
                 .HasColumnType("character varying")
                 .HasColumnName("updated_by");
+            entity.Property(e => e.StoneId).HasColumnName("stone_id");
+            entity.Property(e => e.FittingId).HasColumnName("fitting_id");
+            entity.Property(e => e.PatternId).HasColumnName("pattern_id");
 
             entity.HasOne(d => d.ColorNavigation).WithMany(p => p.Items)
                 .HasForeignKey(d => d.Color)
@@ -100,6 +111,18 @@ public partial class MJDbContext : DbContext
             entity.HasOne(d => d.ItemSubCategoryNavigation).WithMany(p => p.Items)
                 .HasForeignKey(d => d.ItemSubCategory)
                 .HasConstraintName("item_subCategoryfKey");
+
+            entity.HasOne(d => d.StoneNavigation).WithMany(p => p.Items)
+                .HasForeignKey(d => d.StoneId)
+                .HasConstraintName("stone_fkey");
+
+            entity.HasOne(d => d.FittingNavigation).WithMany(p => p.Items)
+                .HasForeignKey(d => d.FittingId)
+                .HasConstraintName("fitting_fkey");
+
+            entity.HasOne(d => d.PatternNavigation).WithMany(p => p.Items)
+                .HasForeignKey(d => d.PatternId)
+                .HasConstraintName("pattern_fkey");
         });
 
         modelBuilder.Entity<Karigar>(entity =>
@@ -182,6 +205,36 @@ public partial class MJDbContext : DbContext
             entity.HasOne(d => d.ProductHead).WithMany(p => p.ProductHeadTypes)
                 .HasForeignKey(d => d.ProductHeadId)
                 .HasConstraintName("fk_category");
+        });
+
+        modelBuilder.Entity<StoneType>(entity =>
+        {
+            entity.HasKey(e => e.StoneTypeId).HasName("stone_type_pkey");
+            entity.ToTable("stone_type");
+            entity.Property(e => e.StoneTypeId).HasColumnName("stone_type_id");
+            entity.Property(e => e.Description).HasColumnName("description");
+            entity.Property(e => e.Name).HasMaxLength(100).HasColumnName("name");
+            entity.Property(e => e.Status).HasColumnName("status");
+        });
+
+        modelBuilder.Entity<FittingType>(entity =>
+        {
+            entity.HasKey(e => e.FittingTypeId).HasName("fitting_type_pkey");
+            entity.ToTable("fitting_type");
+            entity.Property(e => e.FittingTypeId).HasColumnName("fitting_type_id");
+            entity.Property(e => e.Description).HasColumnName("description");
+            entity.Property(e => e.Name).HasMaxLength(100).HasColumnName("name");
+            entity.Property(e => e.Status).HasColumnName("status");
+        });
+
+        modelBuilder.Entity<Pattern>(entity =>
+        {
+            entity.HasKey(e => e.PatternId).HasName("pattern_pkey");
+            entity.ToTable("pattern");
+            entity.Property(e => e.PatternId).HasColumnName("pattern_id");
+            entity.Property(e => e.Description).HasColumnName("description");
+            entity.Property(e => e.Name).HasMaxLength(100).HasColumnName("name");
+            entity.Property(e => e.Status).HasColumnName("status");
         });
 
         modelBuilder.Entity<User>(entity =>

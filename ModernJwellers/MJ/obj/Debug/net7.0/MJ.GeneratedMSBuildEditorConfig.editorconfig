@@ -60,6 +60,14 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSW52ZW50b3J5XF9BZGRDYXRlZ29yeU1vZGVsLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
+[D:/Harikrishna/ModernJwellers/MJ/Views/Inventory/_AddColorModal.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSW52ZW50b3J5XF9BZGRDb2xvck1vZGFsLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Harikrishna/ModernJwellers/MJ/Views/Inventory/_AddFittingModal.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSW52ZW50b3J5XF9BZGRGaXR0aW5nTW9kYWwuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
 [D:/Harikrishna/ModernJwellers/MJ/Views/Inventory/_AddItemModal.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSW52ZW50b3J5XF9BZGRJdGVtTW9kYWwuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
@@ -68,8 +76,16 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSW52ZW50b3J5XF9BZGRNYXRlcmlhbE1vZGFsLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
+[D:/Harikrishna/ModernJwellers/MJ/Views/Inventory/_AddPatternModal.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSW52ZW50b3J5XF9BZGRQYXR0ZXJuTW9kYWwuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
 [D:/Harikrishna/ModernJwellers/MJ/Views/Inventory/_AddPolishModal.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSW52ZW50b3J5XF9BZGRQb2xpc2hNb2RhbC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Harikrishna/ModernJwellers/MJ/Views/Inventory/_AddStoneModal.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSW52ZW50b3J5XF9BZGRTdG9uZU1vZGFsLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
 [D:/Harikrishna/ModernJwellers/MJ/Views/Inventory/_AddSubCategoryModal.cshtml]
@@ -84,12 +100,32 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSW52ZW50b3J5XF9DYXRlZ29yeUxpc3RQYXJ0aWFsLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
+[D:/Harikrishna/ModernJwellers/MJ/Views/Inventory/_ColorListPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSW52ZW50b3J5XF9Db2xvckxpc3RQYXJ0aWFsLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Harikrishna/ModernJwellers/MJ/Views/Inventory/_FittingListPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSW52ZW50b3J5XF9GaXR0aW5nTGlzdFBhcnRpYWwuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Harikrishna/ModernJwellers/MJ/Views/Inventory/_InventoryTable.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSW52ZW50b3J5XF9JbnZlbnRvcnlUYWJsZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
 [D:/Harikrishna/ModernJwellers/MJ/Views/Inventory/_MaterialListPartial.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSW52ZW50b3J5XF9NYXRlcmlhbExpc3RQYXJ0aWFsLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
+[D:/Harikrishna/ModernJwellers/MJ/Views/Inventory/_PatternListPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSW52ZW50b3J5XF9QYXR0ZXJuTGlzdFBhcnRpYWwuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
 [D:/Harikrishna/ModernJwellers/MJ/Views/Inventory/_PolishListPartial.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSW52ZW50b3J5XF9Qb2xpc2hMaXN0UGFydGlhbC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Harikrishna/ModernJwellers/MJ/Views/Inventory/_StoneListPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSW52ZW50b3J5XF9TdG9uZUxpc3RQYXJ0aWFsLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
 [D:/Harikrishna/ModernJwellers/MJ/Views/Inventory/_SubCategoryList.cshtml]

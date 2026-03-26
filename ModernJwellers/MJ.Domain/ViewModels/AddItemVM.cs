@@ -10,14 +10,14 @@ public class AddItemVM
     public string? Description { get; set; }
     public string? Category { get; set; }
 
-    public int StockQuantity { get; set; }
+    public int? StockQuantity { get; set; }
     public int? ThreshHoldQuantity { get; set; }
     
-    public int PolishId { get; set; }
-    public int PatternId { get; set; }
-    public int StoneId { get; set; }
-    public int ColorId { get; set; }
-    public int FittingId { get; set; }
+    public int? PolishId { get; set; }
+    public int? PatternId { get; set; }
+    public int? StoneId { get; set; }
+    public int? ColorId { get; set; }
+    public int? FittingId { get; set; }
     public decimal? Weight { get; set; }
     public IFormFile? ItemImage1 { get; set; }
     public IFormFile? ItemImage2 { get; set; }

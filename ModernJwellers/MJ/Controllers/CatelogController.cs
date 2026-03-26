@@ -1,32 +1,58 @@
 using Microsoft.AspNetCore.Mvc;
+using MJ.Application.Interfaces;
+using MJ.Domain.ViewModels;
 
 namespace MJ.Controllers;
 
 public class CatelogController : Controller
 {
-    public IActionResult CatalogPartial() => PartialView("_CatalogPartial");
-
-    public IActionResult LoadPolishList()
+    private readonly ICatelogServices _catelogService;
+    public CatelogController(ICatelogServices catelogService)
     {
-        // var data = _context.PolishTypes.ToList();
-        return PartialView("_PolishListPartial");
+        _catelogService = catelogService;
     }
 
-    // public IActionResult LoadCategoryList()
-    // {
-    //     var data = _context.Categories.ToList();
-    //     return PartialView("_CategoryListPartial", data);
-    // }
+    public IActionResult CatalogPartial() => PartialView("_CatalogPartial");
 
-    // public IActionResult LoadAttributeList()
-    // {
-    //     var data = _context.Attributes.ToList();
-    //     return PartialView("_AttributeListPartial", data);
-    // }
+    #region Stone
+    public IActionResult StonePartial()
+    {
+        var data = _catelogService.GetStoneList();
+        return PartialView("_StoneListPartial", data);
+    }
 
-    // public IActionResult LoadMaterialList()
-    // {
-    //     var data = _context.Materials.ToList();
-    //     return PartialView("_MaterialListPartial", data);
-    // }
+    [HttpPost]
+    public async Task<IActionResult> CreateStone(StoneTypeVM model)
+    {
+        return await _catelogService.CreateStoneAsync(model);
+    }
+    #endregion
+
+    #region Fitting
+    public IActionResult FittingPartial()
+    {
+        var data = _catelogService.GetFittingList();
+        return PartialView("_FittingListPartial", data);
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> CreateFitting(FittingTypeVM model)
+    {
+        return await _catelogService.CreateFittingAsync(model);
+    }
+    #endregion
+
+    #region Pattern
+    public IActionResult PatternPartial()
+    {
+        var data = _catelogService.GetPatternList();
+        return PartialView("_PatternListPartial", data);
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> CreatePattern(PatternVM model)
+    {
+        return await _catelogService.CreatePatternAsync(model);
+    }
+    #endregion
 }

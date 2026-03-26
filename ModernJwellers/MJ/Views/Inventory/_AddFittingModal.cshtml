@@ -1,0 +1,42 @@
+@model MJ.Domain.ViewModels.FittingTypeVM
+
+<div class="modal fade" id="addFittingModal" tabindex="-1" role="dialog" aria-labelledby="addFittingModalLabel" aria-hidden="true">
+    <div class="modal-dialog shadow-lg" role="document">
+        <div class="modal-content border-0">
+            <div class="modal-header bg-blue-600 text-white">
+                <h5 class="modal-title font-bold" id="addFittingModalLabel">@(Model.Id > 0 ? "Edit Fitting Type" : "Add New Fitting Type")</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form id="fittingForm">
+                <div class="modal-body p-6">
+                    <input type="hidden" id="fittingId" value="@Model.Id" />
+                    <div class="mb-4">
+                        <label for="fittingName" class="block text-sm font-semibold text-gray-700 mb-1">Fitting Name</label>
+                        <input type="text" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 transition-200" id="fittingName" value="@Model.Name" required placeholder="e.g. Handmade, Machine, Sujni" />
+                    </div>
+                    <div class="mb-4">
+                        <label for="fittingDescription" class="block text-sm font-semibold text-gray-700 mb-1">Description</label>
+                        <textarea class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 transition-200" id="fittingDescription" rows="3" placeholder="Optional details...">@Model.Description</textarea>
+                    </div>
+                    <div class="mb-2">
+                        <label class="block text-sm font-semibold text-gray-700 mb-2">Status</label>
+                        <div class="flex items-center space-x-6">
+                            <div class="flex items-center">
+                                <input class="form-check-input h-4 w-4 text-blue-600 border-gray-300" type="radio" name="fittingStatus" id="fittingActive" value="true" @(Model.IsActive ? "checked" : "")>
+                                <label class="ml-2 text-sm text-gray-700" for="fittingActive">Active</label>
+                            </div>
+                            <div class="flex items-center">
+                                <input class="form-check-input h-4 w-4 text-red-600 border-gray-300" type="radio" name="fittingStatus" id="fittingInactive" value="false" @(!Model.IsActive ? "checked" : "")>
+                                <label class="ml-2 text-sm text-gray-700" for="fittingInactive">Inactive</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer bg-gray-50 border-t p-4">
+                    <button type="button" class="px-3 py-2 text-sm font-medium text-gray-700 hover:text-gray-900 transition-200" data-bs-dismiss="modal">Cancel</button>
+                    <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-md font-semibold shadow-sm transition-200">@(Model.Id > 0 ? "Update Fitting" : "Save Fitting")</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

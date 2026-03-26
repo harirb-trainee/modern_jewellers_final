@@ -43,15 +43,18 @@
                 mainContent.classList.add('md:ml-64');
             }
         });
+        window.loadPartialView = function(url) {
+            $('#inventoryIndex').html('<div class="text-center text-gray-500">Loading...</div>');
+            const separator = url.includes('?') ? '&' : '?';
+            const cacheBustUrl = `${url}${separator}_=${new Date().getTime()}`;
+            $.get(cacheBustUrl, function (data) {
+                $('#inventoryIndex').html(data); // Load the partial view content
+            }).fail(function () {
+                $('#inventoryIndex').html('<div class="text-center text-red-500">Failed to load content.</div>');
+            });
+        }
+
         $(document).ready(function () {
-            function loadPartialView(url) {
-                $('#inventoryIndex').html('<div class="text-center text-gray-500">Loading...</div>');
-                $.get(url, function (data) {
-                    $('#inventoryIndex').html(data); // Load the partial view content
-                }).fail(function () {
-                    $('#inventoryIndex').html('<div class="text-center text-red-500">Failed to load content.</div>');
-                });
-            }
 
             // Function to handle active link styling
             function setActiveLink(linkId) {

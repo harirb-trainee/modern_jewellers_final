@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "vcTOFof5YmYRUB6ITMynvOBeKBDEaadZolb4Ih5kEho=",
+  "Hash": "MniNNfU4cTP3swKRZIRiQPfS1oJV97VzegP+/vSLxTE=",
   "Source": "MJ",
   "BasePath": "_content/MJ",
   "Mode": "Default",
@@ -99,6 +99,69 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\favicon.ico"
+    },
+    {
+      "Identity": "D:\\Harikrishna\\ModernJwellers\\MJ\\wwwroot\\images\\items\\2eda36a6-ba53-462d-a4fd-dc2686984508.jfif",
+      "SourceId": "MJ",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\Harikrishna\\ModernJwellers\\MJ\\wwwroot\\",
+      "BasePath": "_content/MJ",
+      "RelativePath": "images/items/2eda36a6-ba53-462d-a4fd-dc2686984508#[.{fingerprint}]?.jfif",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "f1bcvioals",
+      "Integrity": "HTaQbubgaMvQC6D6bDmgjp506etCRGXBXZ5W51bisyw=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\items\\2eda36a6-ba53-462d-a4fd-dc2686984508.jfif"
+    },
+    {
+      "Identity": "D:\\Harikrishna\\ModernJwellers\\MJ\\wwwroot\\images\\items\\53dfd1e3-21b3-4ab6-a513-7dd8472af510.jfif",
+      "SourceId": "MJ",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\Harikrishna\\ModernJwellers\\MJ\\wwwroot\\",
+      "BasePath": "_content/MJ",
+      "RelativePath": "images/items/53dfd1e3-21b3-4ab6-a513-7dd8472af510#[.{fingerprint}]?.jfif",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "zw7vv9gj26",
+      "Integrity": "LcOV0KXkdXKhmppOft+1xryDqhCtHoXqP2A8DxOoyNg=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\items\\53dfd1e3-21b3-4ab6-a513-7dd8472af510.jfif"
+    },
+    {
+      "Identity": "D:\\Harikrishna\\ModernJwellers\\MJ\\wwwroot\\images\\items\\Bracelet\\MJ-4511.png",
+      "SourceId": "MJ",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\Harikrishna\\ModernJwellers\\MJ\\wwwroot\\",
+      "BasePath": "_content/MJ",
+      "RelativePath": "images/items/Bracelet/MJ-4511#[.{fingerprint}]?.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "kx3q0q1qkh",
+      "Integrity": "aM4AuXVJnYMEK7jHZ1Ki4UL2k5mN4AVlQyTnxXN/PPo=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\items\\Bracelet\\MJ-4511.png"
     },
     {
       "Identity": "D:\\Harikrishna\\ModernJwellers\\MJ\\wwwroot\\js\\site.js",
@@ -1586,6 +1649,252 @@
         {
           "Name": "integrity",
           "Value": "sha256-Jtxf9L+5ITKRc1gIRl4VbUpGkRNfOBXjYTdhJD4facM="
+        }
+      ]
+    },
+    {
+      "Route": "images/items/2eda36a6-ba53-462d-a4fd-dc2686984508.f1bcvioals.jfif",
+      "AssetFile": "D:\\Harikrishna\\ModernJwellers\\MJ\\wwwroot\\images\\items\\2eda36a6-ba53-462d-a4fd-dc2686984508.jfif",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "98153"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/pjpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"HTaQbubgaMvQC6D6bDmgjp506etCRGXBXZ5W51bisyw=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 25 Mar 2026 09:50:23 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "f1bcvioals"
+        },
+        {
+          "Name": "label",
+          "Value": "images/items/2eda36a6-ba53-462d-a4fd-dc2686984508.jfif"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-HTaQbubgaMvQC6D6bDmgjp506etCRGXBXZ5W51bisyw="
+        }
+      ]
+    },
+    {
+      "Route": "images/items/2eda36a6-ba53-462d-a4fd-dc2686984508.jfif",
+      "AssetFile": "D:\\Harikrishna\\ModernJwellers\\MJ\\wwwroot\\images\\items\\2eda36a6-ba53-462d-a4fd-dc2686984508.jfif",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "98153"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/pjpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"HTaQbubgaMvQC6D6bDmgjp506etCRGXBXZ5W51bisyw=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 25 Mar 2026 09:50:23 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-HTaQbubgaMvQC6D6bDmgjp506etCRGXBXZ5W51bisyw="
+        }
+      ]
+    },
+    {
+      "Route": "images/items/53dfd1e3-21b3-4ab6-a513-7dd8472af510.jfif",
+      "AssetFile": "D:\\Harikrishna\\ModernJwellers\\MJ\\wwwroot\\images\\items\\53dfd1e3-21b3-4ab6-a513-7dd8472af510.jfif",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "160454"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/pjpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"LcOV0KXkdXKhmppOft+1xryDqhCtHoXqP2A8DxOoyNg=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 25 Mar 2026 09:12:44 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-LcOV0KXkdXKhmppOft+1xryDqhCtHoXqP2A8DxOoyNg="
+        }
+      ]
+    },
+    {
+      "Route": "images/items/53dfd1e3-21b3-4ab6-a513-7dd8472af510.zw7vv9gj26.jfif",
+      "AssetFile": "D:\\Harikrishna\\ModernJwellers\\MJ\\wwwroot\\images\\items\\53dfd1e3-21b3-4ab6-a513-7dd8472af510.jfif",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "160454"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/pjpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"LcOV0KXkdXKhmppOft+1xryDqhCtHoXqP2A8DxOoyNg=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 25 Mar 2026 09:12:44 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "zw7vv9gj26"
+        },
+        {
+          "Name": "label",
+          "Value": "images/items/53dfd1e3-21b3-4ab6-a513-7dd8472af510.jfif"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-LcOV0KXkdXKhmppOft+1xryDqhCtHoXqP2A8DxOoyNg="
+        }
+      ]
+    },
+    {
+      "Route": "images/items/Bracelet/MJ-4511.kx3q0q1qkh.png",
+      "AssetFile": "D:\\Harikrishna\\ModernJwellers\\MJ\\wwwroot\\images\\items\\Bracelet\\MJ-4511.png",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "4014"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/png"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"aM4AuXVJnYMEK7jHZ1Ki4UL2k5mN4AVlQyTnxXN/PPo=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Thu, 26 Mar 2026 11:50:11 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "kx3q0q1qkh"
+        },
+        {
+          "Name": "label",
+          "Value": "images/items/Bracelet/MJ-4511.png"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-aM4AuXVJnYMEK7jHZ1Ki4UL2k5mN4AVlQyTnxXN/PPo="
+        }
+      ]
+    },
+    {
+      "Route": "images/items/Bracelet/MJ-4511.png",
+      "AssetFile": "D:\\Harikrishna\\ModernJwellers\\MJ\\wwwroot\\images\\items\\Bracelet\\MJ-4511.png",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "4014"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/png"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"aM4AuXVJnYMEK7jHZ1Ki4UL2k5mN4AVlQyTnxXN/PPo=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Thu, 26 Mar 2026 11:50:11 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-aM4AuXVJnYMEK7jHZ1Ki4UL2k5mN4AVlQyTnxXN/PPo="
         }
       ]
     },

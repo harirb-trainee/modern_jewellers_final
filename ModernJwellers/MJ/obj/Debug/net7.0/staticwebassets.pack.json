@@ -13,6 +13,18 @@
       "PackagePath": "staticwebassets\\favicon.ico"
     },
     {
+      "Id": "D:\\Harikrishna\\ModernJwellers\\MJ\\wwwroot\\images\\items\\2eda36a6-ba53-462d-a4fd-dc2686984508.jfif",
+      "PackagePath": "staticwebassets\\images\\items\\2eda36a6-ba53-462d-a4fd-dc2686984508.jfif"
+    },
+    {
+      "Id": "D:\\Harikrishna\\ModernJwellers\\MJ\\wwwroot\\images\\items\\53dfd1e3-21b3-4ab6-a513-7dd8472af510.jfif",
+      "PackagePath": "staticwebassets\\images\\items\\53dfd1e3-21b3-4ab6-a513-7dd8472af510.jfif"
+    },
+    {
+      "Id": "D:\\Harikrishna\\ModernJwellers\\MJ\\wwwroot\\images\\items\\Bracelet\\MJ-4511.png",
+      "PackagePath": "staticwebassets\\images\\items\\Bracelet\\MJ-4511.png"
+    },
+    {
       "Id": "D:\\Harikrishna\\ModernJwellers\\MJ\\wwwroot\\js\\site.js",
       "PackagePath": "staticwebassets\\js\\site.js"
     },

@@ -52,13 +52,21 @@
                             class="tab-button py-4 px-6 text-center border-b-2 font-medium text-sm">
                             Sub Categories
                         </button>
-                        <button id="attributeTab"
+                        <button id="stoneTab"
                             class="tab-button py-4 px-6 text-center border-b-2 font-medium text-sm">
-                            Attributes
+                            Stone Types
                         </button>
-                        <button id="materialTab"
+                        <button id="fittingTab"
                             class="tab-button py-4 px-6 text-center border-b-2 font-medium text-sm">
-                            Materials
+                            Fitting Types
+                        </button>
+                        <button id="patternTab"
+                            class="tab-button py-4 px-6 text-center border-b-2 font-medium text-sm">
+                            Pattern Styles
+                        </button>
+                        <button id="colorTab"
+                            class="tab-button py-4 px-6 text-center border-b-2 font-medium text-sm">
+                            Colors
                         </button>
                     </nav>
                 </div>
@@ -75,6 +83,22 @@
                 </div>
                 <!-- Categories Tab Content -->
                 <div id="subcategoryContent" class="tab-content">
+                </div>
+
+                <!-- Stone Types Tab Content -->
+                <div id="stoneContent" class="tab-content">
+                </div>
+
+                <!-- Fitting Types Tab Content -->
+                <div id="fittingContent" class="tab-content">
+                </div>
+
+                <!-- Patterns Tab Content -->
+                <div id="patternContent" class="tab-content">
+                </div>
+
+                <!-- Colors Tab Content -->
+                <div id="colorContent" class="tab-content">
                 </div>
 
                 <!-- Attributes Tab Content -->
@@ -99,36 +123,42 @@
                 $("#" + tab + "Content").addClass("active").show();
                 loadTab(tab);
             });
-
-            function loadTab(tab) {
-                let url = "";
-                switch (tab) {
-                    case "polish":
-                        url = "/Inventory/LoadPolishList";
-                        break;
-                    case "category":
-                        url = "/Inventory/LoadCategoryList";
-                        break;
-                    case "subcategory":
-                        url = "/Inventory/LoadSubCategoryList";
-                        break;
-                    case "attribute":
-                        url = "/Inventory/LoadAttributeList";
-                        break;
-                    case "material":
-                        url = "/Inventory/LoadMaterialList";
-                        break;
-                }
-                if (url !== "") {
-                    $("#" + tab + "Content").html(`<div class='text-center py-10 text-gray-500'>Loading...</div>`);
-                    $.get(url, function (data) {
-                        $("#" + tab + "Content").html(data);
-                    }).fail(function (xhr, status, error) {
-                        console.error("Error loading tab:", error);
-                    });
-                }
-            }
         });
+
+        function loadTab(tab) {
+            let url = "";
+            switch (tab) {
+                case "polish":
+                    url = "/Inventory/LoadPolishList";
+                    break;
+                case "category":
+                    url = "/Inventory/LoadCategoryList";
+                    break;
+                case "subcategory":
+                    url = "/Inventory/LoadSubCategoryList";
+                    break;
+                case "stone":
+                    url = "/Inventory/LoadStoneList";
+                    break;
+                case "fitting":
+                    url = "/Inventory/LoadFittingList";
+                    break;
+                case "pattern":
+                    url = "/Inventory/LoadPatternList";
+                    break;
+                case "color":
+                    url = "/Inventory/LoadColorList";
+                    break;
+            }
+            if (url !== "") {
+                $("#" + tab + "Content").html(`<div class='text-center py-10 text-gray-500'>Loading...</div>`);
+                $.get(url, function (data) {
+                    $("#" + tab + "Content").html(data);
+                }).fail(function (xhr, status, error) {
+                    console.error("Error loading tab:", error);
+                });
+            }
+        }
         $(document).off("click", "#addPolishBtn").on("click", "#addPolishBtn", function () {
             const url = $(this).data("url");
             $.get(url, function (data) {
@@ -249,7 +279,129 @@
             });
         });
 
+        $(document).off("click", "#addStoneBtn").on("click", "#addStoneBtn", function () {
+            const url = $(this).data("url");
+            $.get(url, function (data) {
+                $("#modalContainer").html(data);
+                $("#addStoneModal").modal("show");
+            });
+        });
 
+        $(document).off("click", "#addFittingBtn").on("click", "#addFittingBtn", function () {
+            const url = $(this).data("url");
+            $.get(url, function (data) {
+                $("#modalContainer").html(data);
+                $("#addFittingModal").modal("show");
+            });
+        });
+
+        $(document).off("click", "#addPatternBtn").on("click", "#addPatternBtn", function () {
+            const url = $(this).data("url");
+            $.get(url, function (data) {
+                $("#modalContainer").html(data);
+                $("#addPatternModal").modal("show");
+            });
+        });
+
+        $(document).off("submit", "#stoneForm").on("submit", "#stoneForm", function (e) {
+            e.preventDefault();
+            const formData = {
+                Id: $("#stoneId").val() || 0,
+                Name: $("#stoneName").val(),
+                Description: $("#stoneDescription").val(),
+                IsActive: $("input[name='stoneStatus']:checked").val() === "true"
+            };
+            $.ajax({
+                url: "/Inventory/SaveStone",
+                type: "POST",
+                contentType: "application/json",
+                data: JSON.stringify(formData),
+                success: function (response) {
+                    if (response.success) {
+                        toastr.success(response.message);
+                        $("#addStoneModal").modal("hide");
+                        loadTab('stone');
+                    } else toastr.error(response.message);
+                }
+            });
+        });
+
+        $(document).off("submit", "#fittingForm").on("submit", "#fittingForm", function (e) {
+            e.preventDefault();
+            const formData = {
+                Id: $("#fittingId").val() || 0,
+                Name: $("#fittingName").val(),
+                Description: $("#fittingDescription").val(),
+                IsActive: $("input[name='fittingStatus']:checked").val() === "true"
+            };
+            $.ajax({
+                url: "/Inventory/SaveFitting",
+                type: "POST",
+                contentType: "application/json",
+                data: JSON.stringify(formData),
+                success: function (response) {
+                    if (response.success) {
+                        toastr.success(response.message);
+                        $("#addFittingModal").modal("hide");
+                        loadTab('fitting');
+                    } else toastr.error(response.message);
+                }
+            });
+        });
+
+        $(document).off("submit", "#patternForm").on("submit", "#patternForm", function (e) {
+            e.preventDefault();
+            const formData = {
+                Id: $("#patternId").val() || 0,
+                Name: $("#patternName").val(),
+                Description: $("#patternDescription").val(),
+                IsActive: $("input[name='patternStatus']:checked").val() === "true"
+            };
+            $.ajax({
+                url: "/Inventory/SavePattern",
+                type: "POST",
+                contentType: "application/json",
+                data: JSON.stringify(formData),
+                success: function (response) {
+                    if (response.success) {
+                        toastr.success(response.message);
+                        $("#addPatternModal").modal("hide");
+                        loadTab('pattern');
+                    } else toastr.error(response.message);
+                }
+            });
+        });
+
+        $(document).off("click", "#addColorBtn").on("click", "#addColorBtn", function () {
+            const url = $(this).data("url");
+            $.get(url, function (data) {
+                $("#modalContainer").html(data);
+                $("#addColorModal").modal("show");
+            });
+        });
+
+        $(document).off("submit", "#colorForm").on("submit", "#colorForm", function (e) {
+            e.preventDefault();
+            const formData = {
+                Id: $("#colorId").val() || 0,
+                Name: $("#colorName").val(),
+                HexCode: $("#hexCode").val(),
+                IsActive: $("input[name='colorStatus']:checked").val() === "true"
+            };
+            $.ajax({
+                url: "/Inventory/SaveColor",
+                type: "POST",
+                contentType: "application/json",
+                data: JSON.stringify(formData),
+                success: function (response) {
+                    if (response.success) {
+                        toastr.success(response.message);
+                        $("#addColorModal").modal("hide");
+                        loadTab('color');
+                    } else toastr.error(response.message);
+                }
+            });
+        });
     </script>
 
 </body>

@@ -275,4 +275,255 @@ public class CatelogServices : ICatelogServices
     #endregion
 
 
+    #region Color
+    public List<Color> GetColorList()
+    {
+        return _context.Colors.OrderBy(c => c.Name).ToList();
+    }
+
+    public async Task<JsonResult> CreateColorAsync(ColorVM model)
+    {
+        try
+        {
+            if (string.IsNullOrWhiteSpace(model.Name)) return new JsonResult(new { success = false, message = "Name is required." });
+
+            bool alreadyExists = await _context.Colors.AnyAsync(c => c.Name.ToLower() == model.Name.Trim().ToLower());
+            if (alreadyExists) return new JsonResult(new { success = false, message = "A color with this name already exists." });
+
+            var color = new Color { Name = model.Name, HexCode = model.HexCode, Status = model.IsActive };
+            _context.Colors.Add(color);
+            await _context.SaveChangesAsync();
+            return new JsonResult(new { success = true, message = "Color added successfully." });
+        }
+        catch (Exception ex) { return new JsonResult(new { success = false, message = ex.Message }); }
+    }
+
+    public Color GetColorById(int id)
+    {
+        return _context.Colors.Find(id)!;
+    }
+
+    public async Task<JsonResult> UpdateColorAsync(ColorVM model)
+    {
+        try
+        {
+            if (string.IsNullOrWhiteSpace(model.Name)) return new JsonResult(new { success = false, message = "Name is required." });
+
+            var color = await _context.Colors.FindAsync(model.Id);
+            if (color == null) return new JsonResult(new { success = false, message = "Not found" });
+
+            bool alreadyExists = await _context.Colors.AnyAsync(c => c.ColorId != model.Id && c.Name.ToLower() == model.Name.Trim().ToLower());
+            if (alreadyExists) return new JsonResult(new { success = false, message = "Another color with this name already exists." });
+
+            color.Name = model.Name;
+            color.HexCode = model.HexCode;
+            color.Status = model.IsActive;
+            await _context.SaveChangesAsync();
+            return new JsonResult(new { success = true, message = "Color updated successfully." });
+        }
+        catch (Exception ex) { return new JsonResult(new { success = false, message = ex.Message }); }
+    }
+
+    public async Task<JsonResult> DeleteColorAsync(int id)
+    {
+        try
+        {
+            var color = await _context.Colors.FindAsync(id);
+            if (color == null) return new JsonResult(new { success = false, message = "Color not found." });
+            _context.Colors.Remove(color);
+            await _context.SaveChangesAsync();
+            return new JsonResult(new { success = true, message = "Color deleted successfully." });
+        }
+        catch (Exception ex) { return new JsonResult(new { success = false, message = "Cannot delete as it is being used by items." }); }
+    }
+    #endregion
+
+    #region Stone
+    public List<StoneType> GetStoneList()
+    {
+        return _context.StoneTypes.OrderBy(s => s.Name).ToList();
+    }
+
+    public async Task<JsonResult> CreateStoneAsync(StoneTypeVM model)
+    {
+        try
+        {
+            if (string.IsNullOrWhiteSpace(model.Name)) return new JsonResult(new { success = false, message = "Name is required." });
+            
+            bool alreadyExists = await _context.StoneTypes.AnyAsync(s => s.Name.ToLower() == model.Name.Trim().ToLower());
+            if (alreadyExists) return new JsonResult(new { success = false, message = "A stone type with this name already exists." });
+
+            var stone = new StoneType { Name = model.Name, Description = model.Description, Status = model.IsActive };
+            _context.StoneTypes.Add(stone);
+            await _context.SaveChangesAsync();
+            return new JsonResult(new { success = true, message = "Stone type added successfully." });
+        }
+        catch (Exception ex) { return new JsonResult(new { success = false, message = ex.Message }); }
+    }
+
+    public StoneType GetStoneById(int id)
+    {
+        return _context.StoneTypes.Find(id)!;
+    }
+
+    public async Task<JsonResult> UpdateStoneAsync(StoneTypeVM model)
+    {
+        try
+        {
+            if (string.IsNullOrWhiteSpace(model.Name)) return new JsonResult(new { success = false, message = "Name is required." });
+
+            var stone = await _context.StoneTypes.FindAsync(model.Id);
+            if (stone == null) return new JsonResult(new { success = false, message = "Not found" });
+
+            bool alreadyExists = await _context.StoneTypes.AnyAsync(s => s.StoneTypeId != model.Id && s.Name.ToLower() == model.Name.Trim().ToLower());
+            if (alreadyExists) return new JsonResult(new { success = false, message = "Another stone type with this name already exists." });
+
+            stone.Name = model.Name;
+            stone.Description = model.Description;
+            stone.Status = model.IsActive;
+            await _context.SaveChangesAsync();
+            return new JsonResult(new { success = true, message = "Stone type updated successfully." });
+        }
+        catch (Exception ex) { return new JsonResult(new { success = false, message = ex.Message }); }
+    }
+
+    public async Task<JsonResult> DeleteStoneAsync(int id)
+    {
+        try
+        {
+            var stone = await _context.StoneTypes.FindAsync(id);
+            if (stone == null) return new JsonResult(new { success = false, message = "Stone type not found." });
+            _context.StoneTypes.Remove(stone);
+            await _context.SaveChangesAsync();
+            return new JsonResult(new { success = true, message = "Stone type deleted successfully." });
+        }
+        catch (Exception ex) { return new JsonResult(new { success = false, message = "Cannot delete as it is being used by items." }); }
+    }
+    #endregion
+
+    #region Fitting
+    public List<FittingType> GetFittingList()
+    {
+        return _context.FittingTypes.OrderBy(f => f.Name).ToList();
+    }
+
+    public async Task<JsonResult> CreateFittingAsync(FittingTypeVM model)
+    {
+        try
+        {
+            if (string.IsNullOrWhiteSpace(model.Name)) return new JsonResult(new { success = false, message = "Name is required." });
+
+            bool alreadyExists = await _context.FittingTypes.AnyAsync(f => f.Name.ToLower() == model.Name.Trim().ToLower());
+            if (alreadyExists) return new JsonResult(new { success = false, message = "A fitting type with this name already exists." });
+
+            var fitting = new FittingType { Name = model.Name, Description = model.Description, Status = model.IsActive };
+            _context.FittingTypes.Add(fitting);
+            await _context.SaveChangesAsync();
+            return new JsonResult(new { success = true, message = "Fitting type added successfully." });
+        }
+        catch (Exception ex) { return new JsonResult(new { success = false, message = ex.Message }); }
+    }
+
+    public FittingType GetFittingById(int id)
+    {
+        return _context.FittingTypes.Find(id)!;
+    }
+
+    public async Task<JsonResult> UpdateFittingAsync(FittingTypeVM model)
+    {
+        try
+        {
+            if (string.IsNullOrWhiteSpace(model.Name)) return new JsonResult(new { success = false, message = "Name is required." });
+
+            var fitting = await _context.FittingTypes.FindAsync(model.Id);
+            if (fitting == null) return new JsonResult(new { success = false, message = "Not found" });
+
+            bool alreadyExists = await _context.FittingTypes.AnyAsync(f => f.FittingTypeId != model.Id && f.Name.ToLower() == model.Name.Trim().ToLower());
+            if (alreadyExists) return new JsonResult(new { success = false, message = "Another fitting type with this name already exists." });
+
+            fitting.Name = model.Name;
+            fitting.Description = model.Description;
+            fitting.Status = model.IsActive;
+            await _context.SaveChangesAsync();
+            return new JsonResult(new { success = true, message = "Fitting type updated successfully." });
+        }
+        catch (Exception ex) { return new JsonResult(new { success = false, message = ex.Message }); }
+    }
+
+    public async Task<JsonResult> DeleteFittingAsync(int id)
+    {
+        try
+        {
+            var fitting = await _context.FittingTypes.FindAsync(id);
+            if (fitting == null) return new JsonResult(new { success = false, message = "Fitting type not found." });
+            _context.FittingTypes.Remove(fitting);
+            await _context.SaveChangesAsync();
+            return new JsonResult(new { success = true, message = "Fitting type deleted successfully." });
+        }
+        catch (Exception ex) { return new JsonResult(new { success = false, message = "Cannot delete as it is being used by items." }); }
+    }
+    #endregion
+
+    #region Pattern
+    public List<Pattern> GetPatternList()
+    {
+        return _context.Patterns.OrderBy(p => p.Name).ToList();
+    }
+
+    public async Task<JsonResult> CreatePatternAsync(PatternVM model)
+    {
+        try
+        {
+            if (string.IsNullOrWhiteSpace(model.Name)) return new JsonResult(new { success = false, message = "Name is required." });
+
+            bool alreadyExists = await _context.Patterns.AnyAsync(p => p.Name.ToLower() == model.Name.Trim().ToLower());
+            if (alreadyExists) return new JsonResult(new { success = false, message = "A pattern with this name already exists." });
+
+            var pattern = new Pattern { Name = model.Name, Description = model.Description, Status = model.IsActive };
+            _context.Patterns.Add(pattern);
+            await _context.SaveChangesAsync();
+            return new JsonResult(new { success = true, message = "Pattern added successfully." });
+        }
+        catch (Exception ex) { return new JsonResult(new { success = false, message = ex.Message }); }
+    }
+
+    public Pattern GetPatternById(int id)
+    {
+        return _context.Patterns.Find(id)!;
+    }
+
+    public async Task<JsonResult> UpdatePatternAsync(PatternVM model)
+    {
+        try
+        {
+            if (string.IsNullOrWhiteSpace(model.Name)) return new JsonResult(new { success = false, message = "Name is required." });
+
+            var pattern = await _context.Patterns.FindAsync(model.Id);
+            if (pattern == null) return new JsonResult(new { success = false, message = "Not found" });
+
+            bool alreadyExists = await _context.Patterns.AnyAsync(p => p.PatternId != model.Id && p.Name.ToLower() == model.Name.Trim().ToLower());
+            if (alreadyExists) return new JsonResult(new { success = false, message = "Another pattern with this name already exists." });
+
+            pattern.Name = model.Name;
+            pattern.Description = model.Description;
+            pattern.Status = model.IsActive;
+            await _context.SaveChangesAsync();
+            return new JsonResult(new { success = true, message = "Pattern updated successfully." });
+        }
+        catch (Exception ex) { return new JsonResult(new { success = false, message = ex.Message }); }
+    }
+
+    public async Task<JsonResult> DeletePatternAsync(int id)
+    {
+        try
+        {
+            var pattern = await _context.Patterns.FindAsync(id);
+            if (pattern == null) return new JsonResult(new { success = false, message = "Pattern not found." });
+            _context.Patterns.Remove(pattern);
+            await _context.SaveChangesAsync();
+            return new JsonResult(new { success = true, message = "Pattern deleted successfully." });
+        }
+        catch (Exception ex) { return new JsonResult(new { success = false, message = "Cannot delete as it is being used by items." }); }
+    }
+    #endregion
 }

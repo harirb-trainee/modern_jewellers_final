@@ -1,0 +1,78 @@
+pd.read_csv("path")
+cleaning fnuctions
+-split string str.split -- exapnd ==true returns with not altered column length
+-drop column -- rmemeber inplace ==true(returns same modified df
+-remove noise 0r outliers ---quartile use
+--if more than 1 path files to clean use glob function
+-append all df in 1 list and then concat that list
+
+
+step 1 over----
+
+//ways of data analysis 
+1)histogram -- used to find freqeucny of any feature
+	fig, ax = plt.subplots()
+	ax.hist(df["age"], bins=10)
+	ax.set_title("Age Distribution")
+	ax.set_xlabel("Age")
+	ax.set_ylabel("Frequency")
+
+plt.show()
+
+2)scatter plot
+	fig, ax = plt.subplots()
+	ax.scatter(x_values, y_values) 
+
+3)training data
+	data split -- feature matrix creation and target vector cretion
+		target = "price_aprox_usd"
+		features=["price_aprox_usd","lat","lon","neighborhood"]  list of features
+		X_train =df[features]
+		y_train =  df[target]
+		
+		base model built
+		y_mean = y_train.mean()
+		y_pred_baseline = [y_mean] *len(y_train)
+		baseline_mae = mean_absolute_error(y_train,y_pred_baseline)
+		
+		create pipeline
+		model=make_pipeline(
+				take all necessary transformers 
+				model = make_pipeline(
+				OneHotEncoder(use_cat_names=True),
+				SimpleImputer(),
+				Ridge()
+				model.fit(X_train,y_train)
+				
+			
+		test model
+		X_test = pd.read_csv("data/mexico-city-test-features.csv") //test data comes from cleaned data only
+		y_pred_test = pd.Series(model.predict(X_test))
+		
+		
+//connecting with mongodb and data wrangling
+libraires:MongoClient from pymongo(for establishing connection)
+
+iterator
+	list vs range creation
+	list created a memory for each item,range works as iterartor,giving next number ot item only when needed
+	memory saving
+	
+1)connection to mongoClient server
+mongoClient(host,port ) -->find which db to work upoon-->use that
+	server<--dbs<-- collections(table)<--documnets(row)
+	all this stored in form of dictionary not df
+	
+	filering the mongodb collections	
+			db.count_documnets({condition in this curly brakcets})
+			db.find({conditions}) -- variation projection says which feilds to return
+			convert that json data to data frame,pd.DataFrame(result).set_ondex(column)
+			
+2)Linear Regression with time series
+	see libraries useful here
+	wrangling data to get df of time and reading
+	a) localizing timestamp in data to required region's timezone
+		
+	
+			
+	

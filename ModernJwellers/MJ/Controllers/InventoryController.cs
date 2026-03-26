@@ -17,11 +17,59 @@ public class InventoryController : Controller
     {
         return View();
     }
-    public async Task<IActionResult> InventoryPartial()
+    public async Task<IActionResult> InventoryPartial(
+        [FromQuery] int pageNumber = 1, 
+        [FromQuery] int pageSize = 10,
+        [FromQuery] int? categoryId = null,
+        [FromQuery] int? polishId = null,
+        [FromQuery] int? colorId = null,
+        [FromQuery] string? searchTerm = null,
+        [FromQuery] bool onlyLowStock = false)
     {  
-         var data = await _inventoryService.GetInventoryDashboardAsync();
-         data.ItemList = _inventoryService.GetItemList();
+         var data = await PrepareInventoryDashboard(pageNumber, pageSize, categoryId, polishId, colorId, searchTerm, onlyLowStock);
+
+         ViewBag.CategoryList = _catelogService.GetCategoryList();
+         ViewBag.PolishList = _catelogService.GetPolishList();
+         ViewBag.ColorList = _catelogService.GetColorList();
+
         return PartialView(data);
+    }
+
+    public async Task<IActionResult> InventoryTablePartial(
+        [FromQuery] int pageNumber = 1, 
+        [FromQuery] int pageSize = 10,
+        [FromQuery] int? categoryId = null,
+        [FromQuery] int? polishId = null,
+        [FromQuery] int? colorId = null,
+        [FromQuery] string? searchTerm = null,
+        [FromQuery] bool onlyLowStock = false)
+    {  
+         var data = await PrepareInventoryDashboard(pageNumber, pageSize, categoryId, polishId, colorId, searchTerm, onlyLowStock);
+         return PartialView("_InventoryTable", data);
+    }
+
+    private async Task<InventoryDashboardVM> PrepareInventoryDashboard(int pageNumber, int pageSize, int? categoryId, int? polishId, int? colorId, string? searchTerm, bool onlyLowStock)
+    {
+         if (pageNumber < 1) pageNumber = 1;
+         if (pageSize < 1) pageSize = 10;
+         if (pageSize > 100) pageSize = 100;
+         
+         var data = await _inventoryService.GetInventoryDashboardAsync();
+         int totalCount;
+         data.ItemList = _inventoryService.GetItemList(pageNumber, pageSize, out totalCount, categoryId, polishId, colorId, searchTerm, onlyLowStock);
+         
+         data.CurrentPage = pageNumber;
+         data.PageSize = pageSize;
+         data.TotalCount = totalCount;
+         data.TotalPages = (int)Math.Ceiling((double)totalCount / pageSize);
+
+         data.SelectedCategoryId = categoryId;
+         data.SelectedPolishId = polishId;
+         data.SelectedColorId = colorId;
+         data.SearchTerm = searchTerm;
+         data.OnlyLowStock = onlyLowStock;
+
+         return data;
     }
     public IActionResult CatelogPartial()
     {
@@ -59,16 +107,135 @@ public class InventoryController : Controller
         return PartialView("_SubCategoryList", data);
     }
 
-    public IActionResult LoadMaterialList()
+    public IActionResult LoadStoneList()
     {
-        var data = _catelogService.GetPolishList();
-        return PartialView("_MaterialListPartial", data);
+        var data = _catelogService.GetStoneList();
+        return PartialView("_StoneListPartial", data);
     }
-    public IActionResult LoadAttributeList()
+
+    public IActionResult LoadFittingList()
     {
-        var data = _catelogService.GetPolishList();
-        return PartialView("_AttributeListPartial", data);
+        var data = _catelogService.GetFittingList();
+        return PartialView("_FittingListPartial", data);
     }
+
+    public IActionResult LoadPatternList()
+    {
+        var data = _catelogService.GetPatternList();
+        return PartialView("_PatternListPartial", data);
+    }
+
+    public IActionResult LoadColorList()
+    {
+        var data = _catelogService.GetColorList();
+        return PartialView("_ColorListPartial", data);
+    }
+
+    // Keeping placeholders for old UI if needed, but pointing them to new logic or similar
+    public IActionResult LoadMaterialList() => LoadStoneList();
+    public IActionResult LoadAttributeList() => LoadFittingList();
+
+    #region Stone
+    [HttpGet]
+    public IActionResult LoadAddStoneModal(int id = 0)
+    {
+        StoneTypeVM model;
+        if (id > 0)
+        {
+            var stone = _catelogService.GetStoneById(id);
+            model = new StoneTypeVM { Id = stone.StoneTypeId, Name = stone.Name, Description = stone.Description, IsActive = stone.Status ?? true };
+        }
+        else model = new StoneTypeVM();
+        return PartialView("_AddStoneModal", model);
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> SaveStone([FromBody] StoneTypeVM model)
+    {
+        if (model == null) return Json(new { success = false, message = "Invalid data." });
+        return model.Id > 0 ? await _catelogService.UpdateStoneAsync(model) : await _catelogService.CreateStoneAsync(model);
+    }
+    #endregion
+
+    #region Fitting
+    [HttpGet]
+    public IActionResult LoadAddFittingModal(int id = 0)
+    {
+        FittingTypeVM model;
+        if (id > 0)
+        {
+            var fitting = _catelogService.GetFittingById(id);
+            model = new FittingTypeVM { Id = fitting.FittingTypeId, Name = fitting.Name, Description = fitting.Description, IsActive = fitting.Status ?? true };
+        }
+        else model = new FittingTypeVM();
+        return PartialView("_AddFittingModal", model);
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> SaveFitting([FromBody] FittingTypeVM model)
+    {
+        if (model == null) return Json(new { success = false, message = "Invalid data." });
+        return model.Id > 0 ? await _catelogService.UpdateFittingAsync(model) : await _catelogService.CreateFittingAsync(model);
+    }
+    #endregion
+
+    #region Pattern
+    [HttpGet]
+    public IActionResult LoadAddPatternModal(int id = 0)
+    {
+        PatternVM model;
+        if (id > 0)
+        {
+            var pattern = _catelogService.GetPatternById(id);
+            model = new PatternVM { Id = pattern.PatternId, Name = pattern.Name, Description = pattern.Description, IsActive = pattern.Status ?? true };
+        }
+        else model = new PatternVM();
+        return PartialView("_AddPatternModal", model);
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> SavePattern([FromBody] PatternVM model)
+    {
+        if (model == null) return Json(new { success = false, message = "Invalid data." });
+        return model.Id > 0 ? await _catelogService.UpdatePatternAsync(model) : await _catelogService.CreatePatternAsync(model);
+    }
+
+    [HttpDelete]
+    public async Task<IActionResult> DeleteStone(int id) => await _catelogService.DeleteStoneAsync(id);
+
+    [HttpDelete]
+    public async Task<IActionResult> DeleteFitting(int id) => await _catelogService.DeleteFittingAsync(id);
+
+    [HttpDelete]
+    public async Task<IActionResult> DeletePattern(int id) => await _catelogService.DeletePatternAsync(id);
+
+    #endregion
+
+    #region Color
+    [HttpGet]
+    public IActionResult LoadAddColorModal(int id = 0)
+    {
+        ColorVM model;
+        if (id > 0)
+        {
+            var color = _catelogService.GetColorById(id);
+            model = new ColorVM { Id = color.ColorId, Name = color.Name, HexCode = color.HexCode, IsActive = color.Status ?? true };
+        }
+        else model = new ColorVM();
+        return PartialView("_AddColorModal", model);
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> SaveColor([FromBody] ColorVM model)
+    {
+        if (model == null) return Json(new { success = false, message = "Invalid data." });
+        return model.Id > 0 ? await _catelogService.UpdateColorAsync(model) : await _catelogService.CreateColorAsync(model);
+    }
+
+    [HttpDelete]
+    public async Task<IActionResult> DeleteColor(int id) => await _catelogService.DeleteColorAsync(id);
+
+    #endregion
 
     #region Polish
     [HttpGet]
@@ -239,32 +406,42 @@ public class InventoryController : Controller
 
     #region Item
     [HttpGet]
-    public IActionResult LoadAddItemModal(int id = 0)
+    public async Task<IActionResult> LoadAddItemModal(string id = null)
     {
-        return PartialView("_AddItemModal");
+        AddItemVM model = new AddItemVM();
+        if (!string.IsNullOrEmpty(id))
+        {
+            model = await _inventoryService.GetItemById(id);
+        }
+        
+        ViewBag.CategoryList = _catelogService.GetCategoryList();
+        ViewBag.PolishList = _catelogService.GetPolishList();
+        ViewBag.ColorList = _catelogService.GetColorList();
+        ViewBag.SubCategoryList = _catelogService.GetSubCategoryList();
+        ViewBag.Stones = _catelogService.GetStoneList();
+        ViewBag.Fittings = _catelogService.GetFittingList();
+        ViewBag.Patterns = _catelogService.GetPatternList();
+        
+        return PartialView("_AddItemModal", model);
     }
 
     [HttpPost]
-    public async Task<IActionResult> AddEditItem([FromBody] ProductHeadTypeVM model)
+    public async Task<IActionResult> AddEditItem([FromForm] AddItemVM model, bool isEdit = false)
     {
-        return Json(new { success = false, message = "Not Implemented Yet.Send mssg to Hari to confirm implementation" });
+        if (model == null)
+        {
+            return Json(new { success = false, message = "Invalid data." });
+        }
 
-    //    if (model == null)
-    //     {
-    //         return Json(new { success = false, message = "Values Missing or Parent Category is null." });
-    //     }
-    //     if (model.Id > 0)
-    //     {
+        if (isEdit)
+        {
+            return await _inventoryService.UpdateItem(model);
+        }
 
-    //         return await _catelogService.UpdateSubCategoryAsync(model); ;
-    //     }
-
-    //     else
-    //     {
-    //         return await _catelogService.CreateSubCategoryAsync(model);
-    //     }
+        return await _inventoryService.AddNewItem(model);
     }
-    public async Task<IActionResult> DeleteItem(int id)
+
+    public async Task<IActionResult> DeleteItem(string id)
     {
         var result = await _inventoryService.DeleteItem(id);
         return result;
