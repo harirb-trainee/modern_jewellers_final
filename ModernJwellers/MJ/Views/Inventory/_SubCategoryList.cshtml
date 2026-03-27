@@ -1,40 +1,36 @@
 @model IEnumerable<MJ.Domain.ViewModels.ProductHeadTypeVM>
-@if (Model == null || !Model.Any())
-{
-    <div class="text-center text-gray-500">No data available.</div>
-}
-else
-{
-    <div class="flex justify-between items-center mb-6">
-        <h2 class="text-xl font-semibold">Product HeadTypes</h2>
-        <button id="addSubCategoryBtn" data-url="/Inventory/LoadSubCategoryModal"
-            class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md flex items-center transition-200">
-            <i class="fas fa-plus mr-2"></i> Add Product Head Type
-        </button>
-    </div>
+<div class="flex justify-between items-center mb-6">
+    <h2 class="text-xl font-semibold">Product HeadTypes</h2>
+    <button id="addSubCategoryBtn" data-url="/Inventory/LoadSubCategoryModal"
+        class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md flex items-center transition-200">
+        <i class="fas fa-plus mr-2"></i> Add Product Head Type
+    </button>
+</div>
 
-    <div class="overflow-x-auto">
-        <table class="min-w-full divide-y divide-gray-200">
-            <thead class="bg-gray-50">
-                <tr>
-                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                        Name
-                    </th>
-                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                        Description
-                    </th>
-                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                        Parent Category
-                    </th>
-                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                        Status
-                    </th>
-                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                        Actions
-                    </th>
-                </tr>
-            </thead>
-            <tbody id="categoryTableBody" class="bg-white divide-y divide-gray-200">
+<div class="overflow-x-auto">
+    <table class="min-w-full divide-y divide-gray-200">
+        <thead class="bg-gray-50">
+            <tr>
+                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    Name
+                </th>
+                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    Description
+                </th>
+                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    Parent Category
+                </th>
+                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    Status
+                </th>
+                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    Actions
+                </th>
+            </tr>
+        </thead>
+        <tbody id="categoryTableBody" class="bg-white divide-y divide-gray-200">
+            @if (Model != null && Model.Any())
+            {
                 @foreach (var pHeadType in Model)
                 {
                     <tr class="attribute-item">
@@ -67,10 +63,16 @@ else
                         </td>
                     </tr>
                 }
-            </tbody>
-        </table>
-    </div>
-}
+            }
+            else
+            {
+                <tr>
+                    <td colspan="5" class="px-6 py-10 text-center text-gray-500">No sub-categories found.</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
 <script>
     function editSubCategory(categoryId) {
         var url = '/Inventory/LoadSubCategoryModal?Id=' + categoryId;

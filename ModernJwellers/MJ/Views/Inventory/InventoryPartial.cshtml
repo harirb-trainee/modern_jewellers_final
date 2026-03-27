@@ -1,357 +1,351 @@
 @model MJ.Domain.ViewModels.InventoryDashboardVM
-@if (Model == null || Model.ItemList.Count() == 0)
-{
-    <div class="text-center text-gray-500">No data available.</div>
-}
-else
-{
-    <div>
-        <main>
-            <!-- Search and Filters Section -->
-            <div class="bg-white rounded-lg shadow-md p-4 mb-6">
-                <div class="flex flex-wrap  items-center gap-4">
-                    <!-- Search Box -->
-                    <div class="relative flex-grow max-w-md">
-                        <input type="text" id="searchInput" placeholder="Search items..." value="@Model.SearchTerm"
-                               class="w-full pl-10 pr-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
-                        <i class="fas fa-search absolute left-3 top-3 text-gray-400"></i>
-                    </div>
 
-                    <!-- Filter Buttons -->
-                    <div class="input-group rounded w-25 ">
-                        <select id="polishFilterBtn"
-                                class="form-select rounded flex items-center  px-1 py-2 rounded-sm transition-200 "
-                                onchange="changeStatus(this.value)">
-                            <option value="" selected>Polish Type</option>
-                            @if (ViewBag.PolishList != null)
+<div>
+    <main>
+        <!-- Search and Filters Section -->
+        <div class="bg-white rounded-lg shadow-md p-4 mb-6">
+            <div class="flex flex-wrap  items-center gap-4">
+                <!-- Search Box -->
+                <div class="relative flex-grow max-w-md">
+                    <input type="text" id="searchInput" placeholder="Search items..." value="@Model.SearchTerm"
+                           class="w-full pl-10 pr-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    <i class="fas fa-search absolute left-3 top-3 text-gray-400"></i>
+                </div>
+
+                <!-- Filter Buttons -->
+                <div class="input-group rounded w-25 ">
+                    <select id="polishFilterBtn"
+                            class="form-select rounded flex items-center  px-1 py-2 rounded-sm transition-200 "
+                            onchange="changeStatus(this.value)">
+                        <option value="" selected>Polish Type</option>
+                        @if (ViewBag.PolishList != null)
+                        {
+                            @foreach (var p in (List<MJ.PolishType>)ViewBag.PolishList)
                             {
-                                @foreach (var p in (List<MJ.PolishType>)ViewBag.PolishList)
-                                {
-                                    <option value="@p.PolishTypeId" selected="@(Model.SelectedPolishId == p.PolishTypeId)">@p.Name
-                                    </option>
-                                }
+                                <option value="@p.PolishTypeId" selected="@(Model.SelectedPolishId == p.PolishTypeId)">@p.Name
+                                </option>
                             }
-                        </select>
-                    </div>
-                    <div class="input-group rounded w-25  ">
-                        <select id="colorFilterBtn"
-                                class="form-select rounded flex items-center px-1 py-2 rounded-sm transition-200 "
-                                onchange="changeStatus(this.value)">
-                            <option value="" selected>Color</option>
-                            @if (ViewBag.ColorList != null)
-                            {
-                                @foreach (var c in (List<MJ.Color>)ViewBag.ColorList)
-                                {
-                                    <option value="@c.ColorId" selected="@(Model.SelectedColorId == c.ColorId)">@c.Name</option>
-                                }
-                            }
-                        </select>
-                    </div>
-                    <div class="input-group rounded w-25">
-                        <select id="categoryFilterBtn"
-                                class="form-select rounded flex items-center px-1 py-2 rounded-sm transition-200 "
-                                onchange="changeStatus(this.value)">
-                            <option value="" selected>Category</option>
-                            @if (ViewBag.CategoryList != null)
-                            {
-                                @foreach (var cat in (List<MJ.ProductHead>)ViewBag.CategoryList)
-                                {
-                                    <option value="@cat.ProductHeadId" selected="@(Model.SelectedCategoryId == cat.ProductHeadId)">
-                                        @cat.Name</option>
-                                    }
-                                }
-                            </select>
-                        </div>
-
-                        <button id="stockFilterBtn" data-active="@(Model.OnlyLowStock ? "true" : "false")"
-                                class="flex items-center @(Model.OnlyLowStock ? "bg-yellow-500 text-white" : "bg-gray-100 text-gray-600") hover:opacity-90 px-3 py-2 rounded-lg transition-200">
-                            <i class="fas fa-exclamation-triangle mr-2"></i>
-                            <span>Low Stock</span>
-                        </button>
-
-                        <button id="resetFiltersBtn"
-                                class="flex items-center bg-gray-100 hover:bg-gray-200 px-3 py-2 rounded-lg transition-200">
-                            <i class="fas fa-redo mr-2 text-gray-600"></i>
-                            <span>Reset</span>
-                        </button>
-                        <button id="addItemBtn" data-url="/Inventory/LoadAddItemModal"
-                                class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md flex items-center transition-200">
-                            <i class="fas fa-plus mr-2"></i> Add Item
-                        </button>
-                    </div>
-
-                </div>
-
-                <!-- Inventory Summary -->
-                <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-4">
-                    <div class="bg-white p-4 rounded-lg shadow-sm border-l-4 border-blue-500">
-                        <div class="flex justify-between items-center">
-                            <div>
-                                <p class="text-gray-500 text-sm">Total Items</p>
-                                <h3 class="text-2xl font-bold">@Model.TotalItems</h3>
-                            </div>
-                            <div class="bg-blue-100 p-3 rounded-full text-blue-600">
-                                <i class="fas fa-box text-xl"></i>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="bg-white p-4 rounded-lg shadow-sm border-l-4 border-green-500">
-                        <div class="flex justify-between items-center">
-                            <div>
-                                <p class="text-gray-500 text-sm">Total Value</p>
-                                <h3 class="text-2xl font-bold">₹@Model.TotalInventoryValue</h3>
-                            </div>
-                            <div class="bg-green-100 p-3 rounded-full text-green-600">
-                                <i class="fas fa-rupee-sign text-xl"></i>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="bg-white p-4 rounded-lg shadow-sm border-l-4 border-yellow-500">
-                        <div class="flex justify-between items-center">
-                            <div>
-                                <p class="text-gray-500 text-sm">Low Stock</p>
-                                <h3 class="text-2xl font-bold">@Model.LowStockItems</h3>
-                            </div>
-                            <div class="bg-yellow-100 p-3 rounded-full text-yellow-600">
-                                <i class="fas fa-exclamation-triangle text-xl"></i>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="bg-white p-4 rounded-lg shadow-sm border-l-4 border-purple-500">
-                        <div class="flex justify-between items-center">
-                            <div>
-                                <p class="text-gray-500 text-sm">Categories</p>
-                                <h3 class="text-2xl font-bold">@Model.TotalCategories</h3>
-                            </div>
-                            <div class="bg-purple-100 p-3 rounded-full text-purple-600">
-                                <i class="fas fa-tags text-xl"></i>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Inventory Table Container -->
-                <div id="inventoryTableContainer">
-                    @await Html.PartialAsync("_InventoryTable", Model)
-                </div>
-            </main>
-        </div>
-
-        <script>
-            $(document).off("click", "#addItemBtn").on("click", "#addItemBtn", function () {
-                const url = $(this).data("url");
-                $.get(url, function (data) {
-                    $("#modalContainer").html(data);
-                    $("#addJewelryModal").modal("show");
-                });
-            });
-
-            $(document).off("submit", "#addItemForm").on("submit", "#addItemForm", function (e) {
-                e.preventDefault();
-                const formData = new FormData(this);
-
-                $.ajax({
-                    url: "/Inventory/AddEditItem",
-                    type: "POST",
-                    data: formData,
-                    processData: false,
-                    contentType: false,
-                    success: function (response) {
-                        if (response.success) {
-                            Swal.fire({ icon: 'success', title: 'Success', text: response.message });
-                            $("#addJewelryModal").modal("hide");
-                            loadTableOnly(); // Refresh table only
-                        } else {
-                            Swal.fire({ icon: 'error', title: 'Error', text: response.message });
                         }
-                    },
-                    error: function () {
-                        Swal.fire({ icon: 'error', title: 'Error', text: "Failed to save item." });
-                    }
-                });
-            });
-
-        // Vanilla JS for stock filter to avoid jQuery version issues
-        document.addEventListener('click', function(e) {
-            const btn = e.target.closest('#stockFilterBtn');
-            if (btn) {
-                const isActive = btn.getAttribute('data-active') === "true";
-                const newState = !isActive;
-                btn.setAttribute('data-active', newState ? "true" : "false");
-                
-                if (newState) {
-                    btn.classList.remove("bg-gray-100", "text-gray-600");
-                    btn.classList.add("bg-yellow-500", "text-white");
-                } else {
-                    btn.classList.remove("bg-yellow-500", "text-white");
-                    btn.classList.add("bg-gray-100", "text-gray-600");
-                }
-                
-                // Update jQuery data if available
-                if (window.jQuery) {
-                    window.jQuery(btn).data("active", newState ? "true" : "false");
-                }
-                
-                if (typeof window.changeStatus === 'function') {
-                    window.changeStatus();
-                }
-            }
-        });
-
-        // Partial Table Loading Logic
-        window.loadTableOnly = function (queryParams = "") {
-            const baseUrl = "/Inventory/InventoryTablePartial";
-            const url = queryParams ? `${baseUrl}?${queryParams}` : baseUrl;
-            
-            $("#inventoryTableContainer").addClass("opacity-50 pointer-events-none");
-            
-            $.get(url, function (data) {
-                $("#inventoryTableContainer").html(data);
-                $("#inventoryTableContainer").removeClass("opacity-50 pointer-events-none");
-            }).fail(function () {
-                Swal.fire({ icon: 'error', title: 'Error', text: "Failed to load inventory table." });
-            });
-        }
-
-        window.changeStatus = function () {
-            const pageSize = document.getElementById("itemsPerPage")?.value || 10;
-            const polishId = document.getElementById("polishFilterBtn")?.value || "";
-            const colorId = document.getElementById("colorFilterBtn")?.value || "";
-            const categoryId = document.getElementById("categoryFilterBtn")?.value || "";
-            const searchTerm = document.getElementById("searchInput")?.value || "";
-            const stockBtn = document.getElementById("stockFilterBtn");
-            const onlyLowStock = stockBtn ? stockBtn.getAttribute("data-active") === "true" : false;
-            
-            const params = `pageNumber=1&pageSize=${pageSize}&polishId=${polishId}&colorId=${colorId}&categoryId=${categoryId}&searchTerm=${searchTerm}&onlyLowStock=${onlyLowStock}`;
-            loadTableOnly(params);
-        }
-
-        window.changePage = function (page) {
-            const pageSize = document.getElementById("itemsPerPage")?.value || 10;
-            const polishId = document.getElementById("polishFilterBtn")?.value || "";
-            const colorId = document.getElementById("colorFilterBtn")?.value || "";
-            const categoryId = document.getElementById("categoryFilterBtn")?.value || "";
-            const searchTerm = document.getElementById("searchInput")?.value || "";
-            const stockBtn = document.getElementById("stockFilterBtn");
-            const onlyLowStock = stockBtn ? stockBtn.getAttribute("data-active") === "true" : false;
-            
-            const params = `pageNumber=${page}&pageSize=${pageSize}&polishId=${polishId}&colorId=${colorId}&categoryId=${categoryId}&searchTerm=${searchTerm}&onlyLowStock=${onlyLowStock}`;
-            loadTableOnly(params);
-        }
-
-        // Vanilla JS for per-page and search input
-        let searchTimeout;
-        document.addEventListener('change', function(e) {
-            if (e.target.id === 'itemsPerPage') {
-                if (typeof window.changeStatus === 'function') {
-                    window.changeStatus();
-                }
-            }
-        });
-
-        document.addEventListener('keyup', function(e) {
-            if (e.target.id === 'searchInput') {
-                clearTimeout(searchTimeout);
-                searchTimeout = setTimeout(function () {
-                    if (typeof window.changeStatus === 'function') {
-                        window.changeStatus();
-                    }
-                }, 500);
-            }
-        });
-
-        // Use Vanilla JS for reset button to avoid jQuery version conflicts (e.g. if jQuery 1.4 is loaded)
-        document.addEventListener('click', function (e) {
-            const btn = e.target.closest('#resetFiltersBtn');
-            if (btn) {
-                const searchInput = document.getElementById('searchInput');
-                const polishFilter = document.getElementById('polishFilterBtn');
-                const colorFilter = document.getElementById('colorFilterBtn');
-                const categoryFilter = document.getElementById('categoryFilterBtn');
-                const stockFilter = document.getElementById('stockFilterBtn');
-
-                if (searchInput) searchInput.value = "";
-                if (polishFilter) polishFilter.value = "";
-                if (colorFilter) colorFilter.value = "";
-                if (categoryFilter) categoryFilter.value = "";
-                
-                if (stockFilter) {
-                    stockFilter.setAttribute('data-active', 'false');
-                    stockFilter.classList.remove('bg-yellow-500', 'text-white');
-                    stockFilter.classList.add('bg-gray-100', 'text-gray-600');
-                    // Also update jQuery data if available
-                    if (window.jQuery) {
-                        window.jQuery(stockFilter).data('active', 'false');
-                    }
-                }
-                
-                if (typeof window.changeStatus === 'function') {
-                    window.changeStatus();
-                }
-            }
-        });
-
-            window.editItem = function (id) {
-                $.get('/Inventory/LoadAddItemModal?id=' + id, function (data) {
-                    $("#modalContainer").html(data);
-                    $("#addJewelryModal").modal("show");
-                });
-            }
-
-            window.deleteItem = function (id) {
-                Swal.fire({
-                    title: 'Are you sure?',
-                    text: "You won't be able to revert this!",
-                    icon: 'warning',
-                    showCancelButton: true,
-                    confirmButtonColor: '#3085d6',
-                    cancelButtonColor: '#d33',
-                    confirmButtonText: 'Yes, delete it!'
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        $.ajax({
-                            url: '/Inventory/DeleteItem?id=' + id,
-                            type: 'POST',
-                            success: function (response) {
-                                if (response.success) {
-                                    Swal.fire('Deleted!', response.message, 'success');
-                                    loadTableOnly();
-                                } else {
-                                    Swal.fire('Error!', response.message, 'error');
+                    </select>
+                </div>
+                <div class="input-group rounded w-25  ">
+                    <select id="colorFilterBtn"
+                            class="form-select rounded flex items-center px-1 py-2 rounded-sm transition-200 "
+                            onchange="changeStatus(this.value)">
+                        <option value="" selected>Color</option>
+                        @if (ViewBag.ColorList != null)
+                        {
+                            @foreach (var c in (List<MJ.Color>)ViewBag.ColorList)
+                            {
+                                <option value="@c.ColorId" selected="@(Model.SelectedColorId == c.ColorId)">@c.Name</option>
+                            }
+                        }
+                    </select>
+                </div>
+                <div class="input-group rounded w-25">
+                    <select id="categoryFilterBtn"
+                            class="form-select rounded flex items-center px-1 py-2 rounded-sm transition-200 "
+                            onchange="changeStatus(this.value)">
+                        <option value="" selected>Category</option>
+                        @if (ViewBag.CategoryList != null)
+                        {
+                            @foreach (var cat in (List<MJ.ProductHead>)ViewBag.CategoryList)
+                            {
+                                <option value="@cat.ProductHeadId" selected="@(Model.SelectedCategoryId == cat.ProductHeadId)">
+                                    @cat.Name</option>
                                 }
                             }
-                        });
+                        </select>
+                    </div>
+
+                    <button id="stockFilterBtn" data-active="@(Model.OnlyLowStock ? "true" : "false")"
+                            class="flex items-center @(Model.OnlyLowStock ? "bg-yellow-500 text-white" : "bg-gray-100 text-gray-600") hover:opacity-90 px-3 py-2 rounded-lg transition-200">
+                        <i class="fas fa-exclamation-triangle mr-2"></i>
+                        <span>Low Stock</span>
+                    </button>
+
+                    <button id="resetFiltersBtn"
+                            class="flex items-center bg-gray-100 hover:bg-gray-200 px-3 py-2 rounded-lg transition-200">
+                        <i class="fas fa-redo mr-2 text-gray-600"></i>
+                        <span>Reset</span>
+                    </button>
+                    <button id="addItemBtn" data-url="/Inventory/LoadAddItemModal"
+                            class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md flex items-center transition-200">
+                        <i class="fas fa-plus mr-2"></i> Add Item
+                    </button>
+                </div>
+
+            </div>
+
+            <!-- Inventory Summary -->
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-4">
+                <div class="bg-white p-4 rounded-lg shadow-sm border-l-4 border-blue-500">
+                    <div class="flex justify-between items-center">
+                        <div>
+                            <p class="text-gray-500 text-sm">Total Items</p>
+                            <h3 class="text-2xl font-bold">@Model.TotalItems</h3>
+                        </div>
+                        <div class="bg-blue-100 p-3 rounded-full text-blue-600">
+                            <i class="fas fa-box text-xl"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-white p-4 rounded-lg shadow-sm border-l-4 border-green-500">
+                    <div class="flex justify-between items-center">
+                        <div>
+                            <p class="text-gray-500 text-sm">Total Value</p>
+                            <h3 class="text-2xl font-bold">₹@Model.TotalInventoryValue</h3>
+                        </div>
+                        <div class="bg-green-100 p-3 rounded-full text-green-600">
+                            <i class="fas fa-rupee-sign text-xl"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-white p-4 rounded-lg shadow-sm border-l-4 border-yellow-500">
+                    <div class="flex justify-between items-center">
+                        <div>
+                            <p class="text-gray-500 text-sm">Low Stock</p>
+                            <h3 class="text-2xl font-bold">@Model.LowStockItems</h3>
+                        </div>
+                        <div class="bg-yellow-100 p-3 rounded-full text-yellow-600">
+                            <i class="fas fa-exclamation-triangle text-xl"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-white p-4 rounded-lg shadow-sm border-l-4 border-purple-500">
+                    <div class="flex justify-between items-center">
+                        <div>
+                            <p class="text-gray-500 text-sm">Categories</p>
+                            <h3 class="text-2xl font-bold">@Model.TotalCategories</h3>
+                        </div>
+                        <div class="bg-purple-100 p-3 rounded-full text-purple-600">
+                            <i class="fas fa-tags text-xl"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Inventory Table Container -->
+            <div id="inventoryTableContainer">
+                @await Html.PartialAsync("_InventoryTable", Model)
+            </div>
+        </main>
+    </div>
+
+    <script>
+        $(document).off("click", "#addItemBtn").on("click", "#addItemBtn", function () {
+            const url = $(this).data("url");
+            $.get(url, function (data) {
+                $("#modalContainer").html(data);
+                $("#addJewelryModal").modal("show");
+            });
+        });
+
+        $(document).off("submit", "#addItemForm").on("submit", "#addItemForm", function (e) {
+            e.preventDefault();
+            const formData = new FormData(this);
+
+            $.ajax({
+                url: "/Inventory/AddEditItem",
+                type: "POST",
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function (response) {
+                    if (response.success) {
+                        Swal.fire({ icon: 'success', title: 'Success', text: response.message });
+                        $("#addJewelryModal").modal("hide");
+                        loadTableOnly(); // Refresh table only
+                    } else {
+                        Swal.fire({ icon: 'error', title: 'Error', text: response.message });
                     }
-                })
+                },
+                error: function () {
+                    Swal.fire({ icon: 'error', title: 'Error', text: "Failed to save item." });
+                }
+            });
+        });
+
+    // Vanilla JS for stock filter to avoid jQuery version issues
+    document.addEventListener('click', function(e) {
+        const btn = e.target.closest('#stockFilterBtn');
+        if (btn) {
+            const isActive = btn.getAttribute('data-active') === "true";
+            const newState = !isActive;
+            btn.setAttribute('data-active', newState ? "true" : "false");
+            
+            if (newState) {
+                btn.classList.remove("bg-gray-100", "text-gray-600");
+                btn.classList.add("bg-yellow-500", "text-white");
+            } else {
+                btn.classList.remove("bg-yellow-500", "text-white");
+                btn.classList.add("bg-gray-100", "text-gray-600");
             }
+            
+            // Update jQuery data if available
+            if (window.jQuery) {
+                window.jQuery(btn).data("active", newState ? "true" : "false");
+            }
+            
+            if (typeof window.changeStatus === 'function') {
+                window.changeStatus();
+            }
+        }
+    });
 
-            // Quick View on Hover
-            let hoverTimeout;
-            document.addEventListener('mouseover', function(e) {
-                const row = e.target.closest('.item-row');
-                if (row) {
-                    const itemId = row.getAttribute('data-item-id');
-                    clearTimeout(hoverTimeout);
-                    hoverTimeout = setTimeout(function() {
-                        // Check if a modal is already open
-                        if (document.querySelector('.modal.show')) return;
-                        
-                        $.get('/Inventory/LoadItemDetailsModal?id=' + itemId, function (data) {
-                            $("#modalContainer").html(data);
-                            $("#itemDetailsModal").modal("show");
-                        });
-                    }, 600); // 600ms delay for intentional hover
-                }
-            });
-
-            document.addEventListener('mouseout', function(e) {
-                const row = e.target.closest('.item-row');
-                if (row) {
-                    clearTimeout(hoverTimeout);
-                }
-            });
-        </script>
+    // Partial Table Loading Logic
+    window.loadTableOnly = function (queryParams = "") {
+        const baseUrl = "/Inventory/InventoryTablePartial";
+        const url = queryParams ? `${baseUrl}?${queryParams}` : baseUrl;
+        
+        $("#inventoryTableContainer").addClass("opacity-50 pointer-events-none");
+        
+        $.get(url, function (data) {
+            $("#inventoryTableContainer").html(data);
+            $("#inventoryTableContainer").removeClass("opacity-50 pointer-events-none");
+        }).fail(function () {
+            Swal.fire({ icon: 'error', title: 'Error', text: "Failed to load inventory table." });
+        });
     }
+
+    window.changeStatus = function () {
+        const pageSize = document.getElementById("itemsPerPage")?.value || 10;
+        const polishId = document.getElementById("polishFilterBtn")?.value || "";
+        const colorId = document.getElementById("colorFilterBtn")?.value || "";
+        const categoryId = document.getElementById("categoryFilterBtn")?.value || "";
+        const searchTerm = document.getElementById("searchInput")?.value || "";
+        const stockBtn = document.getElementById("stockFilterBtn");
+        const onlyLowStock = stockBtn ? stockBtn.getAttribute("data-active") === "true" : false;
+        
+        const params = `pageNumber=1&pageSize=${pageSize}&polishId=${polishId}&colorId=${colorId}&categoryId=${categoryId}&searchTerm=${searchTerm}&onlyLowStock=${onlyLowStock}`;
+        loadTableOnly(params);
+    }
+
+    window.changePage = function (page) {
+        const pageSize = document.getElementById("itemsPerPage")?.value || 10;
+        const polishId = document.getElementById("polishFilterBtn")?.value || "";
+        const colorId = document.getElementById("colorFilterBtn")?.value || "";
+        const categoryId = document.getElementById("categoryFilterBtn")?.value || "";
+        const searchTerm = document.getElementById("searchInput")?.value || "";
+        const stockBtn = document.getElementById("stockFilterBtn");
+        const onlyLowStock = stockBtn ? stockBtn.getAttribute("data-active") === "true" : false;
+        
+        const params = `pageNumber=${page}&pageSize=${pageSize}&polishId=${polishId}&colorId=${colorId}&categoryId=${categoryId}&searchTerm=${searchTerm}&onlyLowStock=${onlyLowStock}`;
+        loadTableOnly(params);
+    }
+
+    // Vanilla JS for per-page and search input
+    let searchTimeout;
+    document.addEventListener('change', function(e) {
+        if (e.target.id === 'itemsPerPage') {
+            if (typeof window.changeStatus === 'function') {
+                window.changeStatus();
+            }
+        }
+    });
+
+    document.addEventListener('keyup', function(e) {
+        if (e.target.id === 'searchInput') {
+            clearTimeout(searchTimeout);
+            searchTimeout = setTimeout(function () {
+                if (typeof window.changeStatus === 'function') {
+                    window.changeStatus();
+                }
+            }, 500);
+        }
+    });
+
+    // Use Vanilla JS for reset button to avoid jQuery version conflicts (e.g. if jQuery 1.4 is loaded)
+    document.addEventListener('click', function (e) {
+        const btn = e.target.closest('#resetFiltersBtn');
+        if (btn) {
+            const searchInput = document.getElementById('searchInput');
+            const polishFilter = document.getElementById('polishFilterBtn');
+            const colorFilter = document.getElementById('colorFilterBtn');
+            const categoryFilter = document.getElementById('categoryFilterBtn');
+            const stockFilter = document.getElementById('stockFilterBtn');
+
+            if (searchInput) searchInput.value = "";
+            if (polishFilter) polishFilter.value = "";
+            if (colorFilter) colorFilter.value = "";
+            if (categoryFilter) categoryFilter.value = "";
+            
+            if (stockFilter) {
+                stockFilter.setAttribute('data-active', 'false');
+                stockFilter.classList.remove('bg-yellow-500', 'text-white');
+                stockFilter.classList.add('bg-gray-100', 'text-gray-600');
+                // Also update jQuery data if available
+                if (window.jQuery) {
+                    window.jQuery(stockFilter).data('active', 'false');
+                }
+            }
+            
+            if (typeof window.changeStatus === 'function') {
+                window.changeStatus();
+            }
+        }
+    });
+
+        window.editItem = function (id) {
+            $.get('/Inventory/LoadAddItemModal?id=' + id, function (data) {
+                $("#modalContainer").html(data);
+                $("#addJewelryModal").modal("show");
+            });
+        }
+
+        window.deleteItem = function (id) {
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "You won't be able to revert this!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, delete it!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $.ajax({
+                        url: '/Inventory/DeleteItem?id=' + id,
+                        type: 'POST',
+                        success: function (response) {
+                            if (response.success) {
+                                Swal.fire('Deleted!', response.message, 'success');
+                                loadTableOnly();
+                            } else {
+                                Swal.fire('Error!', response.message, 'error');
+                            }
+                        }
+                    });
+                }
+            })
+        }
+
+        // Quick View on Hover
+        let hoverTimeout;
+        document.addEventListener('mouseover', function(e) {
+            const row = e.target.closest('.item-row');
+            if (row) {
+                const itemId = row.getAttribute('data-item-id');
+                clearTimeout(hoverTimeout);
+                hoverTimeout = setTimeout(function() {
+                    // Check if a modal is already open
+                    if (document.querySelector('.modal.show')) return;
+                    
+                    $.get('/Inventory/LoadItemDetailsModal?id=' + itemId, function (data) {
+                        $("#modalContainer").html(data);
+                        $("#itemDetailsModal").modal("show");
+                    });
+                }, 600); // 600ms delay for intentional hover
+            }
+        });
+
+        document.addEventListener('mouseout', function(e) {
+            const row = e.target.closest('.item-row');
+            if (row) {
+                clearTimeout(hoverTimeout);
+            }
+        });
+    </script>
 
 
     
