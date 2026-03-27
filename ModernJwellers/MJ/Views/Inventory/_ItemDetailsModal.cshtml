@@ -1,0 +1,87 @@
+@model MJ.Domain.ViewModels.AddItemVM
+
+<div class="modal fade" id="itemDetailsModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content border-0 shadow-lg rounded-xl overflow-hidden">
+            <div class="modal-header bg-gradient-to-r from-blue-600 to-indigo-700 text-white border-0 py-4">
+                <h5 class="modal-title font-bold text-xl flex items-center">
+                    <i class="fas fa-gem mr-3"></i> Item Details: @Model.ItemName
+                </h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body p-0">
+                <div class="flex flex-col md:flex-row">
+                    <!-- Image Section -->
+                    <div class="md:w-5/12 bg-gray-50 flex items-center justify-center p-6 border-r border-gray-100">
+                        <div class="relative group">
+                            <img src="@(string.IsNullOrEmpty(Model.ItemImageUrl1) ? "https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?w=600" : Model.ItemImageUrl1)" 
+                                 class="w-full h-auto rounded-lg shadow-md object-cover transform transition-transform duration-300 group-hover:scale-105" 
+                                 alt="@Model.ItemName">
+                            <div class="absolute top-2 right-2 px-3 py-1 bg-white/90 backdrop-blur-sm rounded-full text-xs font-bold text-blue-600 shadow-sm">
+                                @Model.MJCode
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Details Section -->
+                    <div class="md:w-7/12 p-8">
+                        <div class="grid grid-cols-2 gap-y-6 gap-x-8">
+                            <div>
+                                <label class="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-1 block">Category</label>
+                                <p class="text-gray-900 font-medium">@(Model.CategoryName ?? "N/A")</p>
+                            </div>
+                            <div>
+                                <label class="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-1 block">Sub-Category</label>
+                                <p class="text-gray-900 font-medium">@(Model.subCategoryName ?? "N/A")</p>
+                            </div>
+                            <div>
+                                <label class="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-1 block">Polish Type</label>
+                                <p class="text-gray-900 font-medium">@(Model.PolishTypeName ?? "N/A")</p>
+                            </div>
+                            <div>
+                                <label class="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-1 block">Color</label>
+                                <p class="text-gray-900 font-medium">@(Model.ColorName ?? "N/A")</p>
+                            </div>
+                            <div>
+                                <label class="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-1 block">Stone</label>
+                                <p class="text-gray-900 font-medium">@(Model.StoneName ?? "N/A")</p>
+                            </div>
+                            <div>
+                                <label class="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-1 block">Fitting</label>
+                                <p class="text-gray-900 font-medium">@(Model.FittingName ?? "N/A")</p>
+                            </div>
+                            <div>
+                                <label class="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-1 block">Pattern</label>
+                                <p class="text-gray-900 font-medium">@(Model.PatternName ?? "N/A")</p>
+                            </div>
+                            <div>
+                                <label class="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-1 block">Current Stock</label>
+                                <div class="flex items-center">
+                                    <span class="text-lg font-bold @(Model.StockQuantity <= Model.ThreshHoldQuantity ? "text-red-600" : "text-green-600")">
+                                        @Model.StockQuantity
+                                    </span>
+                                    <span class="ml-2 text-xs text-gray-400">(Threshold: @Model.ThreshHoldQuantity)</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="mt-8 pt-6 border-t border-gray-100 flex items-center justify-between">
+                            <div>
+                                <label class="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-1 block">Price</label>
+                                <p class="text-2xl font-black text-gray-900">₹@Model.ItemPrice</p>
+                            </div>
+                            <div class="flex space-x-3">
+                                <button class="px-4 py-2 bg-blue-50 text-blue-700 rounded-lg font-medium hover:bg-blue-100 transition-colors flex items-center" onclick="editItem('@Model.MJCode')" data-bs-dismiss="modal">
+                                    <i class="fas fa-edit mr-2"></i> Edit
+                                </button>
+                                <button class="px-4 py-2 bg-gray-900 text-white rounded-lg font-medium hover:bg-black transition-colors" data-bs-dismiss="modal">
+                                    Close
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

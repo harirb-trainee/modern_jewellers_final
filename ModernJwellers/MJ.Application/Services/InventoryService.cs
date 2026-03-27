@@ -20,10 +20,11 @@ public class InventoryService : IInventoryService
         // Apply Search
         if (!string.IsNullOrEmpty(searchTerm))
         {
-            query = query.Where(i => i.ItemName.Contains(searchTerm) || 
-                                     i.ItemId.Contains(searchTerm) ||
-                                     (i.ItemCategoryNavigation != null && i.ItemCategoryNavigation.Name.Contains(searchTerm)) ||
-                                     (i.ItemPolishNavigation != null && i.ItemPolishNavigation.Name.Contains(searchTerm)));
+            var searchPattern = $"%{searchTerm}%";
+            query = query.Where(i => EF.Functions.ILike(i.ItemName, searchPattern) || 
+                                     EF.Functions.ILike(i.ItemId, searchPattern) ||
+                                     (i.ItemCategoryNavigation != null && EF.Functions.ILike(i.ItemCategoryNavigation.Name, searchPattern)) ||
+                                     (i.ItemPolishNavigation != null && EF.Functions.ILike(i.ItemPolishNavigation.Name, searchPattern)));
         }
 
         // Apply Low Stock Filter
@@ -106,6 +107,7 @@ public class InventoryService : IInventoryService
                 StoneId = itemVM.StoneId,
                 FittingId = itemVM.FittingId,
                 PatternId = itemVM.PatternId,
+                Description = itemVM.Description,
                 CreatedAt = DateTime.Now,
                 CreatedBy = itemVM.AddedBy ?? "Admin"
             };
@@ -168,6 +170,12 @@ public class InventoryService : IInventoryService
     {
         var item = await _context.Items
             .Include(i => i.ItemCategoryNavigation)
+            .Include(i => i.ColorNavigation)
+            .Include(i => i.ItemPolishNavigation)
+            .Include(i => i.StoneNavigation)
+            .Include(i => i.FittingNavigation)
+            .Include(i => i.PatternNavigation)
+            .Include(i => i.ItemSubCategoryNavigation)
             .FirstOrDefaultAsync(i => i.ItemId == itemId);
 
         if (item == null) return null;
@@ -178,13 +186,24 @@ public class InventoryService : IInventoryService
             ItemName = item.ItemName,
             ItemPrice = item.ItemPrice,
             StockQuantity = item.ItemQuantity,
+            ThreshHoldQuantity = item.Threshold,
+            Description = item.Description,
             Category = item.ItemCategory?.ToString(),
             PolishId = item.ItemPolish,
             ColorId = item.Color,
             PatternId = item.PatternId,
             StoneId = item.StoneId,
             FittingId = item.FittingId,
-            ItemImageUrl1 = item.PhotoUrl
+            ItemImageUrl1 = item.PhotoUrl,
+            
+            // Populate Display Names
+            CategoryName = item.ItemCategoryNavigation?.Name,
+            subCategoryName = item.ItemSubCategoryNavigation?.Name,
+            PolishTypeName = item.ItemPolishNavigation?.Name,
+            ColorName = item.ColorNavigation?.Name,
+            StoneName = item.StoneNavigation?.Name,
+            FittingName = item.FittingNavigation?.Name,
+            PatternName = item.PatternNavigation?.Name
         };
     }
 
@@ -198,6 +217,7 @@ public class InventoryService : IInventoryService
             item.ItemName = itemVM.ItemName ?? string.Empty;
             item.ItemQuantity = itemVM.StockQuantity;
             item.Threshold = itemVM.ThreshHoldQuantity;
+            item.Description = itemVM.Description;
             item.ItemPrice = itemVM.ItemPrice ?? 0;
             item.ItemPolish = itemVM.PolishId;
             item.Color = itemVM.ColorId;

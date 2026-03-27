@@ -6,7 +6,7 @@ public interface ICatelogServices
 {
 
     #region Polish
-    public List<PolishType> GetPolishList();
+    public List<PolishType> GetPolishList(bool onlyActive = false);
     public PolishType GetPolishByIdAsync(int? id);
     public Task<JsonResult> CreatePolishAsync(PolishTypeVM model);
     public Task<JsonResult> UpdatePolishAsync(PolishTypeVM model);
@@ -14,7 +14,7 @@ public interface ICatelogServices
     #endregion
 
     #region ProductHead
-    public List<ProductHead> GetCategoryList();
+    public List<ProductHead> GetCategoryList(bool onlyActive = false);
     public ProductHead GetCategoryByIdAsync(int? id);
     public Task<JsonResult> CreateCategoryAsync(ProductHeadVM model);
     public Task<JsonResult> UpdateCategoryAsync(ProductHeadVM model);
@@ -22,7 +22,7 @@ public interface ICatelogServices
     #endregion
 
     #region ProductHeadType
-    public List<ProductHeadTypeVM> GetSubCategoryList();
+    public List<ProductHeadTypeVM> GetSubCategoryList(bool onlyActive = false);
     public ProductHeadTypeVM GetSubCategoryByIdAsync(int? id);
     public Task<JsonResult> CreateSubCategoryAsync(ProductHeadTypeVM model);
     public Task<JsonResult> UpdateSubCategoryAsync(ProductHeadTypeVM model);
@@ -30,7 +30,7 @@ public interface ICatelogServices
 
     #endregion
     #region Color
-    public List<Color> GetColorList();
+    public List<Color> GetColorList(bool onlyActive = false);
     public Color GetColorById(int id);
     public Task<JsonResult> CreateColorAsync(ColorVM model);
     public Task<JsonResult> UpdateColorAsync(ColorVM model);
@@ -38,7 +38,7 @@ public interface ICatelogServices
     #endregion
 
     #region Stone
-    public List<StoneType> GetStoneList();
+    public List<StoneType> GetStoneList(bool onlyActive = false);
     public StoneType GetStoneById(int id);
     public Task<JsonResult> CreateStoneAsync(StoneTypeVM model);
     public Task<JsonResult> UpdateStoneAsync(StoneTypeVM model);
@@ -46,7 +46,7 @@ public interface ICatelogServices
     #endregion
 
     #region Fitting
-    public List<FittingType> GetFittingList();
+    public List<FittingType> GetFittingList(bool onlyActive = false);
     public FittingType GetFittingById(int id);
     public Task<JsonResult> CreateFittingAsync(FittingTypeVM model);
     public Task<JsonResult> UpdateFittingAsync(FittingTypeVM model);
@@ -54,7 +54,7 @@ public interface ICatelogServices
     #endregion
 
     #region Pattern
-    public List<Pattern> GetPatternList();
+    public List<Pattern> GetPatternList(bool onlyActive = false);
     public Pattern GetPatternById(int id);
     public Task<JsonResult> CreatePatternAsync(PatternVM model);
     public Task<JsonResult> UpdatePatternAsync(PatternVM model);

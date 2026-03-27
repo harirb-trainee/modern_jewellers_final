@@ -8,7 +8,7 @@ public partial class Item
     public string ItemId { get; set; } = null!;
 
     public string ItemName { get; set; } = null!;
-
+    public string? Description { get; set; }
     public decimal ItemPrice { get; set; }
 
     public int? ItemQuantity { get; set; }

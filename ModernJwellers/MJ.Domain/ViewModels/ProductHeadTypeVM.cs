@@ -1,9 +1,12 @@
+using System.ComponentModel.DataAnnotations;
+
 namespace MJ.Domain.ViewModels;
 
 public class ProductHeadTypeVM
 {
     public int Id { get; set; }
     public string Name { get; set; }
+    [StringLength(100)]
     public string Description { get; set; }
     public bool IsActive { get; set; } = true;
     public string CreatedBy { get; set; }  

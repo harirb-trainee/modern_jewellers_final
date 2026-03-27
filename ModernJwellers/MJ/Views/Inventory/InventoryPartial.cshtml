@@ -171,15 +171,31 @@ else
                 });
             });
 
-          $(document).off("click", "#stockFilterBtn").on("click", "#stockFilterBtn", function() {
-            const isActive = $(this).data("active") === "true";
-            $(this).data("active", !isActive ? "true" : "false");
-            if (!isActive) {
-                $(this).removeClass("bg-gray-100 text-gray-600").addClass("bg-yellow-500 text-white");
-            } else {
-                $(this).removeClass("bg-yellow-500 text-white").addClass("bg-gray-100 text-gray-600");
+        // Vanilla JS for stock filter to avoid jQuery version issues
+        document.addEventListener('click', function(e) {
+            const btn = e.target.closest('#stockFilterBtn');
+            if (btn) {
+                const isActive = btn.getAttribute('data-active') === "true";
+                const newState = !isActive;
+                btn.setAttribute('data-active', newState ? "true" : "false");
+                
+                if (newState) {
+                    btn.classList.remove("bg-gray-100", "text-gray-600");
+                    btn.classList.add("bg-yellow-500", "text-white");
+                } else {
+                    btn.classList.remove("bg-yellow-500", "text-white");
+                    btn.classList.add("bg-gray-100", "text-gray-600");
+                }
+                
+                // Update jQuery data if available
+                if (window.jQuery) {
+                    window.jQuery(btn).data("active", newState ? "true" : "false");
+                }
+                
+                if (typeof window.changeStatus === 'function') {
+                    window.changeStatus();
+                }
             }
-            changeStatus();
         });
 
         // Partial Table Loading Logic
@@ -198,46 +214,81 @@ else
         }
 
         window.changeStatus = function () {
-            const pageSize = $("#itemsPerPage").val();
-            const polishId = $("#polishFilterBtn").val();
-            const colorId = $("#colorFilterBtn").val();
-            const categoryId = $("#categoryFilterBtn").val();
-            const searchTerm = $("#searchInput").val();
-            const onlyLowStock = $("#stockFilterBtn").data("active") === "true";
+            const pageSize = document.getElementById("itemsPerPage")?.value || 10;
+            const polishId = document.getElementById("polishFilterBtn")?.value || "";
+            const colorId = document.getElementById("colorFilterBtn")?.value || "";
+            const categoryId = document.getElementById("categoryFilterBtn")?.value || "";
+            const searchTerm = document.getElementById("searchInput")?.value || "";
+            const stockBtn = document.getElementById("stockFilterBtn");
+            const onlyLowStock = stockBtn ? stockBtn.getAttribute("data-active") === "true" : false;
             
             const params = `pageNumber=1&pageSize=${pageSize}&polishId=${polishId}&colorId=${colorId}&categoryId=${categoryId}&searchTerm=${searchTerm}&onlyLowStock=${onlyLowStock}`;
             loadTableOnly(params);
         }
 
         window.changePage = function (page) {
-            const pageSize = $("#itemsPerPage").val();
-            const polishId = $("#polishFilterBtn").val();
-            const colorId = $("#colorFilterBtn").val();
-            const categoryId = $("#categoryFilterBtn").val();
-            const searchTerm = $("#searchInput").val();
-            const onlyLowStock = $("#stockFilterBtn").data("active") === "true";
+            const pageSize = document.getElementById("itemsPerPage")?.value || 10;
+            const polishId = document.getElementById("polishFilterBtn")?.value || "";
+            const colorId = document.getElementById("colorFilterBtn")?.value || "";
+            const categoryId = document.getElementById("categoryFilterBtn")?.value || "";
+            const searchTerm = document.getElementById("searchInput")?.value || "";
+            const stockBtn = document.getElementById("stockFilterBtn");
+            const onlyLowStock = stockBtn ? stockBtn.getAttribute("data-active") === "true" : false;
             
             const params = `pageNumber=${page}&pageSize=${pageSize}&polishId=${polishId}&colorId=${colorId}&categoryId=${categoryId}&searchTerm=${searchTerm}&onlyLowStock=${onlyLowStock}`;
             loadTableOnly(params);
         }
 
-        $(document).off("change", "#itemsPerPage").on("change", "#itemsPerPage", function () {
-            changeStatus();
-        });
-
+        // Vanilla JS for per-page and search input
         let searchTimeout;
-        $(document).off("keyup", "#searchInput").on("keyup", "#searchInput", function () {
-            clearTimeout(searchTimeout);
-            searchTimeout = setTimeout(function () {
-                changeStatus();
-            }, 500);
+        document.addEventListener('change', function(e) {
+            if (e.target.id === 'itemsPerPage') {
+                if (typeof window.changeStatus === 'function') {
+                    window.changeStatus();
+                }
+            }
         });
 
-        $("#resetFiltersBtn").click(function () {
-            $("#searchInput").val("");
-            $("#polishFilterBtn, #colorFilterBtn, #categoryFilterBtn").val("");
-            $("#stockFilterBtn").data("active", "false").removeClass("bg-yellow-500 text-white").addClass("bg-gray-100 text-gray-600");
-            loadTableOnly();
+        document.addEventListener('keyup', function(e) {
+            if (e.target.id === 'searchInput') {
+                clearTimeout(searchTimeout);
+                searchTimeout = setTimeout(function () {
+                    if (typeof window.changeStatus === 'function') {
+                        window.changeStatus();
+                    }
+                }, 500);
+            }
+        });
+
+        // Use Vanilla JS for reset button to avoid jQuery version conflicts (e.g. if jQuery 1.4 is loaded)
+        document.addEventListener('click', function (e) {
+            const btn = e.target.closest('#resetFiltersBtn');
+            if (btn) {
+                const searchInput = document.getElementById('searchInput');
+                const polishFilter = document.getElementById('polishFilterBtn');
+                const colorFilter = document.getElementById('colorFilterBtn');
+                const categoryFilter = document.getElementById('categoryFilterBtn');
+                const stockFilter = document.getElementById('stockFilterBtn');
+
+                if (searchInput) searchInput.value = "";
+                if (polishFilter) polishFilter.value = "";
+                if (colorFilter) colorFilter.value = "";
+                if (categoryFilter) categoryFilter.value = "";
+                
+                if (stockFilter) {
+                    stockFilter.setAttribute('data-active', 'false');
+                    stockFilter.classList.remove('bg-yellow-500', 'text-white');
+                    stockFilter.classList.add('bg-gray-100', 'text-gray-600');
+                    // Also update jQuery data if available
+                    if (window.jQuery) {
+                        window.jQuery(stockFilter).data('active', 'false');
+                    }
+                }
+                
+                if (typeof window.changeStatus === 'function') {
+                    window.changeStatus();
+                }
+            }
         });
 
             window.editItem = function (id) {
@@ -273,6 +324,32 @@ else
                     }
                 })
             }
+
+            // Quick View on Hover
+            let hoverTimeout;
+            document.addEventListener('mouseover', function(e) {
+                const row = e.target.closest('.item-row');
+                if (row) {
+                    const itemId = row.getAttribute('data-item-id');
+                    clearTimeout(hoverTimeout);
+                    hoverTimeout = setTimeout(function() {
+                        // Check if a modal is already open
+                        if (document.querySelector('.modal.show')) return;
+                        
+                        $.get('/Inventory/LoadItemDetailsModal?id=' + itemId, function (data) {
+                            $("#modalContainer").html(data);
+                            $("#itemDetailsModal").modal("show");
+                        });
+                    }, 600); // 600ms delay for intentional hover
+                }
+            });
+
+            document.addEventListener('mouseout', function(e) {
+                const row = e.target.closest('.item-row');
+                if (row) {
+                    clearTimeout(hoverTimeout);
+                }
+            });
         </script>
     }
 

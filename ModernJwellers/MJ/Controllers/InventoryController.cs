@@ -93,41 +93,41 @@ public class InventoryController : Controller
 
     public IActionResult LoadPolishList()
     {
-        var data = _catelogService.GetPolishList();
+        var data = _catelogService.GetPolishList(onlyActive: true);
         return PartialView("_PolishListPartial", data);
     }
     public IActionResult LoadCategoryList()
     {
-        var data = _catelogService.GetCategoryList();
+        var data = _catelogService.GetCategoryList(onlyActive: true);
         return PartialView("_CategoryListPartial", data);
     }
     public IActionResult LoadSubCategoryList()
     {
-        var data = _catelogService.GetSubCategoryList();
+        var data = _catelogService.GetSubCategoryList(onlyActive: true);
         return PartialView("_SubCategoryList", data);
     }
 
     public IActionResult LoadStoneList()
     {
-        var data = _catelogService.GetStoneList();
+        var data = _catelogService.GetStoneList(onlyActive: true);
         return PartialView("_StoneListPartial", data);
     }
 
     public IActionResult LoadFittingList()
     {
-        var data = _catelogService.GetFittingList();
+        var data = _catelogService.GetFittingList(onlyActive: true);
         return PartialView("_FittingListPartial", data);
     }
 
     public IActionResult LoadPatternList()
     {
-        var data = _catelogService.GetPatternList();
+        var data = _catelogService.GetPatternList(onlyActive: true);
         return PartialView("_PatternListPartial", data);
     }
 
     public IActionResult LoadColorList()
     {
-        var data = _catelogService.GetColorList();
+        var data = _catelogService.GetColorList(onlyActive: true);
         return PartialView("_ColorListPartial", data);
     }
 
@@ -414,13 +414,13 @@ public class InventoryController : Controller
             model = await _inventoryService.GetItemById(id);
         }
         
-        ViewBag.CategoryList = _catelogService.GetCategoryList();
-        ViewBag.PolishList = _catelogService.GetPolishList();
-        ViewBag.ColorList = _catelogService.GetColorList();
-        ViewBag.SubCategoryList = _catelogService.GetSubCategoryList();
-        ViewBag.Stones = _catelogService.GetStoneList();
-        ViewBag.Fittings = _catelogService.GetFittingList();
-        ViewBag.Patterns = _catelogService.GetPatternList();
+        ViewBag.CategoryList = _catelogService.GetCategoryList(onlyActive: true);
+        ViewBag.PolishList = _catelogService.GetPolishList(onlyActive: true);
+        ViewBag.ColorList = _catelogService.GetColorList(onlyActive: true);
+        ViewBag.SubCategoryList = _catelogService.GetSubCategoryList(onlyActive: true);
+        ViewBag.Stones = _catelogService.GetStoneList(onlyActive: true);
+        ViewBag.Fittings = _catelogService.GetFittingList(onlyActive: true);
+        ViewBag.Patterns = _catelogService.GetPatternList(onlyActive: true);
         
         return PartialView("_AddItemModal", model);
     }
@@ -445,6 +445,15 @@ public class InventoryController : Controller
     {
         var result = await _inventoryService.DeleteItem(id);
         return result;
+    }
+
+    [HttpGet]
+    public async Task<IActionResult> LoadItemDetailsModal(string id)
+    {
+        var model = await _inventoryService.GetItemById(id);
+        if (model == null) return NotFound();
+
+        return PartialView("_ItemDetailsModal", model);
     }
 
     #endregion

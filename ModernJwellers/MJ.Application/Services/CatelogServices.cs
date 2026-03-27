@@ -14,9 +14,11 @@ public class CatelogServices : ICatelogServices
     }
 
     #region Polish
-    public List<PolishType> GetPolishList()
+    public List<PolishType> GetPolishList(bool onlyActive = false)
     {
-        return _context.PolishTypes.OrderBy(p => p.PolishTypeId).ToList();
+        var query = _context.PolishTypes.AsQueryable();
+        if (onlyActive) query = query.Where(p => p.Status == true);
+        return query.OrderBy(p => p.PolishTypeId).ToList();
     }
     public PolishType GetPolishByIdAsync(int? id)
     {
@@ -91,9 +93,11 @@ public class CatelogServices : ICatelogServices
     #endregion
 
     #region ProductHead
-    public List<ProductHead> GetCategoryList()
+    public List<ProductHead> GetCategoryList(bool onlyActive = false)
     {
-        return _context.ProductHeads.OrderBy(p => p.ProductHeadId).ToList();
+        var query = _context.ProductHeads.AsQueryable();
+        if (onlyActive) query = query.Where(p => p.Status == true);
+        return query.OrderBy(p => p.ProductHeadId).ToList();
     }
 
     public ProductHead GetCategoryByIdAsync(int? id)
@@ -167,9 +171,12 @@ public class CatelogServices : ICatelogServices
     #endregion
 
     #region ProductHeadType
-    public List<ProductHeadTypeVM> GetSubCategoryList()
+    public List<ProductHeadTypeVM> GetSubCategoryList(bool onlyActive = false)
     {
-        var result = (from pht in _context.ProductHeadTypes
+        var query = _context.ProductHeadTypes.AsQueryable();
+        if (onlyActive) query = query.Where(p => p.Status == true);
+
+        var result = (from pht in query
                       join ph in _context.ProductHeads on pht.ProductHeadId equals ph.ProductHeadId
                       select new Domain.ViewModels.ProductHeadTypeVM
                       {
@@ -177,8 +184,6 @@ public class CatelogServices : ICatelogServices
                           Name = pht.Name,
                           Description = pht.Description,
                           IsActive = pht.Status == true ? true : false,
-                          //   CreatedBy = ,
-                          //   CreatedDate = pht.CreatedDate,
                           ParentCategoryName = ph.Name
                       }).OrderBy(x=>x.Id).ToList();
         return result;
@@ -276,9 +281,11 @@ public class CatelogServices : ICatelogServices
 
 
     #region Color
-    public List<Color> GetColorList()
+    public List<Color> GetColorList(bool onlyActive = false)
     {
-        return _context.Colors.OrderBy(c => c.Name).ToList();
+        var query = _context.Colors.AsQueryable();
+        if (onlyActive) query = query.Where(c => c.Status == true);
+        return query.OrderBy(c => c.Name).ToList();
     }
 
     public async Task<JsonResult> CreateColorAsync(ColorVM model)
@@ -339,9 +346,11 @@ public class CatelogServices : ICatelogServices
     #endregion
 
     #region Stone
-    public List<StoneType> GetStoneList()
+    public List<StoneType> GetStoneList(bool onlyActive = false)
     {
-        return _context.StoneTypes.OrderBy(s => s.Name).ToList();
+        var query = _context.StoneTypes.AsQueryable();
+        if (onlyActive) query = query.Where(s => s.Status == true);
+        return query.OrderBy(s => s.Name).ToList();
     }
 
     public async Task<JsonResult> CreateStoneAsync(StoneTypeVM model)
@@ -402,9 +411,11 @@ public class CatelogServices : ICatelogServices
     #endregion
 
     #region Fitting
-    public List<FittingType> GetFittingList()
+    public List<FittingType> GetFittingList(bool onlyActive = false)
     {
-        return _context.FittingTypes.OrderBy(f => f.Name).ToList();
+        var query = _context.FittingTypes.AsQueryable();
+        if (onlyActive) query = query.Where(f => f.Status == true);
+        return query.OrderBy(f => f.Name).ToList();
     }
 
     public async Task<JsonResult> CreateFittingAsync(FittingTypeVM model)
@@ -465,9 +476,11 @@ public class CatelogServices : ICatelogServices
     #endregion
 
     #region Pattern
-    public List<Pattern> GetPatternList()
+    public List<Pattern> GetPatternList(bool onlyActive = false)
     {
-        return _context.Patterns.OrderBy(p => p.Name).ToList();
+        var query = _context.Patterns.AsQueryable();
+        if (onlyActive) query = query.Where(p => p.Status == true);
+        return query.OrderBy(p => p.Name).ToList();
     }
 
     public async Task<JsonResult> CreatePatternAsync(PatternVM model)

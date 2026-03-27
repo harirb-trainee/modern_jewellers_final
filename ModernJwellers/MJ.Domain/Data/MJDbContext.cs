@@ -80,6 +80,9 @@ public partial class MJDbContext : DbContext
             entity.Property(e => e.ItemName)
                 .HasColumnType("character varying")
                 .HasColumnName("item_name");
+            entity.Property(e => e.Description)
+                .HasMaxLength(100)
+                .HasColumnName("description");
             entity.Property(e => e.ItemPolish).HasColumnName("item_polish");
             entity.Property(e => e.ItemPrice).HasColumnName("item_price");
             entity.Property(e => e.ItemQuantity).HasColumnName("item_quantity");
